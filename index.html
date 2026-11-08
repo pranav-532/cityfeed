@@ -114,7 +114,7 @@
         </div>
 
         <!-- Applied Opportunities Section -->
-        <section id="applied-section" style="margin-bottom: 40px">
+        <section id="applied-section" style="display:none;margin-bottom: 40px">
           <div class="section-header">
             <div style="display:flex;align-items:center;gap:10px">
               <h2 class="section-title">Your Applied Opportunities</h2>
@@ -160,7 +160,7 @@
           <h3 class="user-name-display">Pranav Kolekar</h3>
           <p class="user-college-display">IIT Madras</p>
           <div class="stats-row">
-            <div class="stat"><strong class="applied-count">0</strong><small>Applied</small></div>
+            <div class="stat" style="cursor:pointer" onclick="setFilter('applied')" title="View applied opportunities"><strong class="applied-count">0</strong><small>Applied</small></div>
             <div class="stat"><strong class="saved-count">0</strong><small>Saved</small></div>
           </div>
           <a href="pages/profile.html" class="btn btn-sm">View Profile</a>

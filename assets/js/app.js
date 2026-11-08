@@ -642,7 +642,10 @@ function renderCompetitionCard(c) {
           <div class="org-logo">${c.orgLogo}</div>
           <span>${c.org}</span>
         </div>
-        <span class="type-pill ${c.type}">${typeLabel}</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          ${isApplied ? '<span class="tag tag-green" style="font-weight:700">✓ Applied</span>' : ''}
+          <span class="type-pill ${c.type}">${typeLabel}</span>
+        </div>
       </div>
       <div class="card-title">${c.title}</div>
       <div class="card-tags">
@@ -666,7 +669,7 @@ function renderCompetitionCard(c) {
         </button>
         <button class="apply-btn ${isApplied ? 'applied' : ''}" data-apply="${c.id}"
           onclick="event.stopPropagation(); openApplyModal('${c.id}')">
-          ${isApplied ? 'Applied' : 'Apply'}
+          ${isApplied ? '✓ Applied' : 'Apply'}
         </button>
       </div>
     </div>
@@ -680,7 +683,10 @@ function renderInternshipCard(i) {
   <div class="internship-card animate-in" onclick="openDetailModal('${i.id}')">
     <div class="internship-logo">${i.orgLogo}</div>
     <div class="internship-info">
-      <div class="internship-role">${i.role}</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="internship-role">${i.role}</div>
+        ${isApplied ? '<span class="tag tag-green" style="font-weight:700;font-size:0.75rem">✓ Applied</span>' : ''}
+      </div>
       <div class="internship-org">${i.org} &nbsp;&middot;&nbsp; ${i.location} &nbsp;&middot;&nbsp; ${i.duration}</div>
       <div class="internship-tags">
         ${i.tags.map(t => `<span class="tag tag-orange">${t}</span>`).join('')}
@@ -691,7 +697,7 @@ function renderInternshipCard(i) {
       <div class="internship-deadline"><span class="deadline-badge ${urgentClass}">${i.daysLeft}d left</span></div>
       <button class="apply-btn btn-sm ${isApplied ? 'applied' : ''}" data-apply="${i.id}"
         onclick="event.stopPropagation(); openApplyModal('${i.id}')">
-        ${isApplied ? 'Applied' : 'Apply'}
+        ${isApplied ? '✓ Applied' : 'Apply'}
       </button>
     </div>
   </div>`;
@@ -705,8 +711,13 @@ function renderContent() {
   const internList = document.getElementById('internships-list');
   const compSection = document.getElementById('competitions-section');
   const internSection = document.getElementById('internships-section');
+  const featuredBanner = document.querySelector('.featured-banner');
 
   renderAppliedSection();
+
+  if (featuredBanner) {
+    featuredBanner.style.display = (activeFilter === 'applied') ? 'none' : 'flex';
+  }
 
   if (compGrid) {
     if (comps.length === 0) {
@@ -748,22 +759,27 @@ function renderAppliedSection() {
   if (!container) return;
 
   const appliedIds = (AUTH.isLoggedIn && AUTH.user && Array.isArray(AUTH.user.applied)) ? AUTH.user.applied : [];
-  const appliedItems = [...COMPETITIONS, ...INTERNSHIPS].filter(x => appliedIds.includes(x.id));
+  let appliedItems = [...COMPETITIONS, ...INTERNSHIPS].filter(x => appliedIds.includes(x.id));
+
+  if (searchQuery) {
+    appliedItems = appliedItems.filter(item => {
+      const title = (item.title || item.role || '').toLowerCase();
+      const org = (item.org || '').toLowerCase();
+      const tags = (item.tags || []).some(t => t.toLowerCase().includes(searchQuery));
+      return title.includes(searchQuery) || org.includes(searchQuery) || tags;
+    });
+  }
 
   if (countBadge) {
     countBadge.textContent = `${appliedItems.length} applied`;
   }
   if (pillCount) {
-    pillCount.textContent = appliedItems.length;
-    pillCount.style.display = appliedItems.length > 0 ? 'inline-block' : 'none';
+    pillCount.textContent = appliedIds.length;
+    pillCount.style.display = appliedIds.length > 0 ? 'inline-block' : 'none';
   }
 
   if (appliedSection) {
-    if (activeFilter === 'applied' || activeFilter === 'all') {
-      appliedSection.style.display = 'block';
-    } else {
-      appliedSection.style.display = 'none';
-    }
+    appliedSection.style.display = (activeFilter === 'applied') ? 'block' : 'none';
   }
 
   if (!AUTH.isLoggedIn) {
