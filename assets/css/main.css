@@ -4,33 +4,34 @@
    ============================================================ */
 
 :root {
-  /* Marina Palette Theme */
-  --primary:          #326080;   /* Marina Ocean Slate Blue */
-  --primary-dark:     #21435b;   /* Deeper Slate Blue for pressed / active states */
-  --primary-light:    #B5D2E6;   /* Marina Soft Powder Sky Blue */
-  --primary-hover:    #3b6f93;   /* Marina Blue Hover */
-  --secondary:        #805232;   /* Marina Warm Terracotta / Chestnut */
-  --secondary-light:  #f6ebe3;   /* Marina Warm Linen Tint */
-  --secondary-hover:  #684126;   /* Marina Terracotta Hover */
+  /* Rose Quartz Evening Palette Theme */
+  --primary:          #64242F;   /* Deep Wine / Burgundy */
+  --primary-dark:     #491821;   /* Deeper Burgundy for pressed / active states */
+  --primary-light:    #fae4e6;   /* Soft Rose Quartz Tint for badges & pills */
+  --primary-hover:    #7b2c3a;   /* Rich Wine Hover */
+  --secondary:        #B44446;   /* Terracotta Rose / Coral Brick */
+  --secondary-light:  #fcebeb;   /* Warm Terracotta Tint */
+  --secondary-hover:  #9c383a;   /* Coral Brick Hover */
+  --accent-pink:      #FC8F8F;   /* Rose Quartz Coral Highlight */
   --accent-green:     #15803d;
   --accent-green-bg:  #dcfce7;
   
   /* Crisp, Dark, High-Contrast Text */
-  --text-primary:     #142533;   /* Deep slate charcoal */
-  --text-secondary:   #2a4254;   /* Refined slate */
-  --text-muted:       #4d6475;   /* Legible muted tone */
+  --text-primary:     #1f0f12;   /* Deep rich espresso wine charcoal */
+  --text-secondary:   #3d2327;   /* Refined dark burgundy */
+  --text-muted:       #5e4347;   /* Legible muted tone */
   
-  /* Marina Warm Cream & Surface Canvas */
-  --bg:               #FFF1E7;   /* Marina Soft Warm Linen Cream */
+  /* Rose Quartz Evening Canvas */
+  --bg:               #DFD9D8;   /* Warm Pearl Mist / Pale Rose Grey */
   --surface:          #ffffff;   /* Pure White for crisp elevated cards */
-  --surface-subtle:   #f8ede4;   /* Subtle Marina Cream for panels & inputs */
-  --border:           #e5d5c7;   /* Warm harmonious border tone */
-  --border-focus:     #326080;
+  --surface-subtle:   #f2eceb;   /* Subtle Pale Rose Mist for panels & inputs */
+  --border:           #d1c8c7;   /* Harmonious Rose Grey border tone */
+  --border-focus:     #64242F;
   
   --radius:           8px;
   --radius-lg:        12px;
-  --shadow-sm:        0 1px 3px rgba(50,96,128,0.08), 0 1px 2px rgba(50,96,128,0.04);
-  --shadow-md:        0 4px 14px rgba(50,96,128,0.10), 0 2px 4px rgba(50,96,128,0.05);
+  --shadow-sm:        0 1px 3px rgba(100,36,47,0.08), 0 1px 2px rgba(100,36,47,0.04);
+  --shadow-md:        0 4px 14px rgba(100,36,47,0.10), 0 2px 4px rgba(100,36,47,0.05);
   --transition:       0.18s ease;
   --font:             'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -282,7 +283,7 @@ img { max-width: 100%; display: block; }
 }
 
 .hero h1 span {
-  color: #B5D2E6;
+  color: #FC8F8F;
 }
 
 .hero p {
@@ -506,9 +507,9 @@ img { max-width: 100%; display: block; }
   color: var(--text-secondary);
   border: 1px solid var(--border);
 }
-.tag-blue   { background: var(--primary-light); color: #16364e; border-color: #9ec3dc; }
+.tag-blue   { background: var(--primary-light); color: var(--primary); border-color: #f7bec1; }
 .tag-green  { background: var(--accent-green-bg); color: var(--accent-green); border-color: #bbf7d0; }
-.tag-orange { background: var(--secondary-light); color: var(--secondary); border-color: #e5cdbc; }
+.tag-orange { background: var(--secondary-light); color: var(--secondary); border-color: #f8c9cb; }
 
 .card-meta {
   display: flex;
@@ -846,7 +847,7 @@ img { max-width: 100%; display: block; }
   font-weight: 800;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #B5D2E6 !important;
+  color: #FC8F8F !important;
   margin-bottom: 6px;
   display: inline-block;
   background: rgba(255,255,255,0.12);
@@ -944,7 +945,7 @@ img { max-width: 100%; display: block; }
   font-weight: 800;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #B5D2E6;
+  color: #FC8F8F;
   margin-bottom: 4px;
 }
 .apply-modal-banner h2 {
@@ -1134,13 +1135,13 @@ textarea.form-input { resize: vertical; }
 }
 
 .demo-hint {
-  background: #eaf1f7;
-  border: 1px solid #B5D2E6;
+  background: #fae8e9;
+  border: 1px solid #f7bec1;
   border-radius: var(--radius);
   padding: 10px 14px;
   margin-bottom: 16px;
   font-size: 0.82rem;
-  color: #1a394f;
+  color: #64242F;
   font-weight: 500;
 }
 .demo-hint strong { display: block; margin-bottom: 2px; font-weight: 800; }
