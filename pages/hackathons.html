@@ -33,11 +33,11 @@
   </div>
 </nav>
 
-<section class="hero" style="padding:48px 24px 36px;background:linear-gradient(135deg,#0d2a1a 0%,#065f46 50%,#1a3a4e 100%)">
+<section class="hero" style="padding:48px 24px 36px">
   <div class="hero-content">
-    <div class="hero-badge">💻 Hackathons</div>
+    <div class="hero-badge">Hackathons</div>
     <h1>Build. <span>Hack.</span> Win.</h1>
-    <p>24-hour sprints, 36-hour marathons, and week-long challenges. Find your next hackathon in Chennai.</p>
+    <p>24-hour sprints, 36-hour marathons, and week-long challenges across Chennai colleges.</p>
     <div class="hero-stats">
       <div class="hero-stat"><strong>3</strong><span>Active Hackathons</span></div>
       <div class="hero-stat"><strong>₹80,000+</strong><span>Total Prizes</span></div>
@@ -47,24 +47,23 @@
 </section>
 
 <div class="filter-bar">
-  <button class="filter-chip active" data-filter="hackathon" onclick="setFilter('hackathon')">💻 All Hackathons</button>
-  <button class="filter-chip" data-filter="all" onclick="setFilter('all')">🔥 All Events</button>
+  <button class="filter-chip active" data-filter="hackathon" onclick="setFilter('hackathon')">All Hackathons</button>
+  <button class="filter-chip" data-filter="all" onclick="setFilter('all')">All Events</button>
 </div>
 
 <main class="container section">
   <div class="page-layout">
     <div class="main-col">
       <div class="section-header">
-        <h2 class="section-title"><span class="icon">💻</span> Hackathons Near You</h2>
+        <h2 class="section-title">Hackathons Near You</h2>
       </div>
       <div class="cards-grid" id="competitions-grid"></div>
     </div>
     <aside class="sidebar">
-      <div class="sidebar-widget" style="background:linear-gradient(135deg,#065f46,#00C9A7);color:white;border-radius:20px;padding:28px 20px;text-align:center">
-        <div style="font-size:2.5rem;margin-bottom:12px">💻</div>
-        <h3 style="font-weight:800;margin-bottom:8px">Want to Host a Hackathon?</h3>
-        <p style="font-size:0.82rem;opacity:0.85;margin-bottom:16px">List your club's hackathon on CityFeed and reach students across Chennai's college cluster.</p>
-        <button class="btn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);width:100%;justify-content:center" onclick="showToast('Organizer onboarding coming soon!','info','🚀')">List Your Event</button>
+      <div class="sidebar-widget" style="text-align:center;padding:24px 18px">
+        <h3 style="font-weight:700;margin-bottom:6px;font-size:0.95rem">Host a Hackathon</h3>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px">List your club's hackathon on CityFeed and reach students across the Chennai cluster.</p>
+        <button class="btn btn-outline btn-sm w-full" style="justify-content:center" onclick="showToast('Organizer onboarding coming soon!','info','✓')">List Your Event</button>
       </div>
       <div class="sidebar-widget">
         <div class="sidebar-widget-title">⏰ Upcoming Deadlines</div>

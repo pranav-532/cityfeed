@@ -7,7 +7,7 @@
 
 ## 🌟 What is CityFeed?
 
-**CityFeed** is a hyper-local campus event discovery and micro-sponsorship platform for college students in Chennai. Think Unstop — but localised for your city's college cluster (IITM, Anna University, SRM, VIT Chennai).
+**CityFeed** is a hyper-local campus event discovery and micro-sponsorship platform for college students in Chennai — tailored directly for your city's college cluster (IITM, Anna University, SRM, VIT Chennai).
 
 **Problem Solved:** Thousands of students in every city miss out on accessible local competitions, hackathons, and internships because publicity is trapped inside closed WhatsApp groups and college notice boards. Simultaneously, local businesses waste money on paper flyers trying to reach students with zero measurable ROI.
 
@@ -61,11 +61,11 @@ cityfeed/
 
 ---
 
-## 🎓 Demo Data (from real Unstop/active competitions)
+## 🎓 Demo Data (Active Competitions & Opportunities)
 
 | Competition | Org | Prize | Deadline |
 |-------------|-----|-------|----------|
-| Unstop Momentum — Case Study | Unstop | ₹1,00,000 | Nov 25 |
+| National Case Study Challenge | Apex Case League | ₹1,00,000 | Nov 25 |
 | SIH Internal Hackathon | IIT Madras | ₹50,000 | Nov 30 |
 | Nirmaan BPC | E-Cell IITM | ₹75,000 + Incubation | Dec 5 |
 | Chennai Hacks 3.0 | CodeChef VIT | ₹30,000 | Nov 20 |

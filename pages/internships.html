@@ -33,11 +33,11 @@
   </div>
 </nav>
 
-<section class="hero" style="padding:48px 24px 36px;background:linear-gradient(135deg,#1a0a0a 0%,#7c2d12 50%,#1a3a4e 100%)">
+<section class="hero" style="padding:48px 24px 36px">
   <div class="hero-content">
-    <div class="hero-badge">💼 Internships</div>
-    <h1>Land Your <span>Dream Internship</span></h1>
-    <p>Local Chennai companies and startups looking for talented IITM students. Apply directly, no middleman.</p>
+    <div class="hero-badge">Internships</div>
+    <h1>Explore <span>Campus Internships</span></h1>
+    <p>Local Chennai companies and startups looking for college talent. Apply directly with zero friction.</p>
     <div class="hero-stats">
       <div class="hero-stat"><strong>6</strong><span>Open Positions</span></div>
       <div class="hero-stat"><strong>₹12k–30k</strong><span>Stipend Range</span></div>
@@ -47,29 +47,28 @@
 </section>
 
 <div class="filter-bar">
-  <button class="filter-chip active" data-filter="all-intern" onclick="filterInterns('all')">💼 All Internships</button>
-  <button class="filter-chip" data-filter="tech" onclick="filterInterns('tech')">💻 Tech/SDE</button>
-  <button class="filter-chip" data-filter="ds" onclick="filterInterns('ds')">📊 Data Science</button>
-  <button class="filter-chip" data-filter="design" onclick="filterInterns('design')">🎨 Design</button>
-  <button class="filter-chip" data-filter="biz" onclick="filterInterns('biz')">📈 Business</button>
-  <button class="filter-chip" data-filter="core" onclick="filterInterns('core')">⚙️ Core Engg</button>
+  <button class="filter-chip active" data-filter="all-intern" onclick="filterInterns('all')">All Roles</button>
+  <button class="filter-chip" data-filter="tech" onclick="filterInterns('tech')">Software &amp; Tech</button>
+  <button class="filter-chip" data-filter="ds" onclick="filterInterns('ds')">Data Science</button>
+  <button class="filter-chip" data-filter="design" onclick="filterInterns('design')">Design</button>
+  <button class="filter-chip" data-filter="biz" onclick="filterInterns('biz')">Business</button>
+  <button class="filter-chip" data-filter="core" onclick="filterInterns('core')">Core Engineering</button>
 </div>
 
 <main class="container section">
   <div class="page-layout">
     <div class="main-col">
       <div class="section-header">
-        <h2 class="section-title"><span class="icon">💼</span> Open Internship Positions</h2>
+        <h2 class="section-title">Open Internship Positions</h2>
         <div style="font-size:0.85rem;color:var(--text-muted)">Showing <span id="intern-count">6</span> positions</div>
       </div>
       <div class="internship-list" id="internships-list"></div>
     </div>
     <aside class="sidebar">
-      <div class="sidebar-widget" style="background:linear-gradient(135deg,#7c2d12,#FF6B35);color:white;border-radius:20px;padding:28px 20px;text-align:center">
-        <div style="font-size:2.5rem;margin-bottom:12px">🤝</div>
-        <h3 style="font-weight:800;margin-bottom:8px">Are You a Recruiter?</h3>
-        <p style="font-size:0.82rem;opacity:0.85;margin-bottom:16px">Post your internship and reach 12,000+ students across Chennai's top colleges.</p>
-        <button class="btn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);width:100%;justify-content:center" onclick="showToast('Recruiter portal coming soon!','info','🚀')">Post an Internship</button>
+      <div class="sidebar-widget" style="text-align:center;padding:24px 18px">
+        <h3 style="font-weight:700;margin-bottom:6px;font-size:0.95rem">Recruiting Students?</h3>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px">Post an internship listing and connect directly with candidates across Chennai campuses.</p>
+        <button class="btn btn-outline btn-sm w-full" style="justify-content:center" onclick="showToast('Recruiter portal coming soon!','info','✓')">Post an Internship</button>
       </div>
       <div class="sidebar-widget">
         <div class="sidebar-widget-title">⏰ Upcoming Deadlines</div>

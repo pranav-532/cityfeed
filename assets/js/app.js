@@ -28,10 +28,10 @@ const COMPETITIONS = [
   {
     id: 'c1',
     type: 'competition',
-    title: 'Unstop Momentum — National Case Study Challenge 2026',
-    org: 'Unstop',
+    title: 'National Case Study Challenge 2026',
+    org: 'Apex Case League',
     orgLogo: '🏆',
-    banner: 'linear-gradient(135deg, #6C3CE1, #2d1070)',
+    banner: 'linear-gradient(135deg, #3b5a75, #2d465c)',
     tags: ['Case Study', 'Business Strategy', 'Open for All'],
     prize: '₹1,00,000',
     deadline: '2026-11-25',
@@ -39,7 +39,7 @@ const COMPETITIONS = [
     participants: '12,400+',
     location: 'Pan India (Online + Chennai Finals)',
     mode: 'Hybrid',
-    description: 'India\'s largest case study challenge. Tackle real business problems from top companies. Chennai regional finals to be hosted at IIT Madras Research Park.',
+    description: 'India\'s premier case study challenge. Tackle real business problems from top companies. Chennai regional finals to be hosted at IIT Madras Research Park.',
     eligibility: 'Open to all UG/PG students',
     team: '2–4 members',
     registerLink: '#',
@@ -291,10 +291,10 @@ const INTERNSHIPS = [
 const DEADLINES = [
   { title: 'Chennai Hacks 3.0', days: 10, color: '#ef4444' },
   { title: 'TechTatva UI/UX', days: 10, color: '#ef4444' },
-  { title: 'Pragyan Quiz', days: 14, color: '#f97316' },
-  { title: 'Unstop Momentum', days: 17, color: '#f97316' },
-  { title: 'Bosch DS Intern', days: 17, color: '#f97316' },
-  { title: 'SIH Internal Hack', days: 22, color: '#22c55e' }
+  { title: 'Pragyan Quiz', days: 14, color: '#c26838' },
+  { title: 'National Case Study', days: 17, color: '#c26838' },
+  { title: 'Bosch DS Intern', days: 17, color: '#c26838' },
+  { title: 'SIH Internal Hack', days: 22, color: '#3b755d' }
 ];
 
 // ── Toast Notifications ──
@@ -601,18 +601,18 @@ function openDetailModal(id) {
   const typeLabel = isComp ? (item.type === 'hackathon' ? 'Hackathon' : 'Competition') : 'Internship';
 
   document.getElementById('detail-modal-content').innerHTML = `
-    <div style="background:var(--primary);padding:24px;color:white;border-radius:12px 12px 0 0">
-      <div style="font-size:0.72rem;opacity:0.7;margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase">${typeLabel}</div>
-      <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:6px;line-height:1.4">${item.title || item.role}</h2>
-      <div style="font-size:0.82rem;opacity:0.8">${item.org} &nbsp;&middot;&nbsp; ${item.location || ''}</div>
+    <div style="background:var(--primary);padding:24px;color:#f6f8fa;border-radius:12px 12px 0 0">
+      <div style="font-size:0.72rem;opacity:0.75;margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase">${typeLabel}</div>
+      <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:6px;line-height:1.4;color:#f6f8fa">${item.title || item.role}</h2>
+      <div style="font-size:0.82rem;opacity:0.85">${item.org} &nbsp;&middot;&nbsp; ${item.location || ''}</div>
     </div>
-    <div style="padding:20px 24px">
+    <div style="padding:20px 24px;background:var(--surface)">
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">
         ${isComp
-          ? `<div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Prize Pool</div><div style="font-weight:700;font-size:0.95rem">${item.prize}</div></div>`
-          : `<div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Stipend</div><div style="font-weight:700;font-size:0.95rem">${item.stipend}</div></div>`}
-        <div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Deadline</div><div style="font-weight:700;font-size:0.9rem">${formatDate(item.deadline)}</div></div>
-        <div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">${isComp ? 'Team Size' : 'Duration'}</div><div style="font-weight:700;font-size:0.9rem">${isComp ? item.team : item.duration}</div></div>
+          ? `<div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-subtle)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Prize Pool</div><div style="font-weight:700;font-size:0.95rem">${item.prize}</div></div>`
+          : `<div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-subtle)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Stipend</div><div style="font-weight:700;font-size:0.95rem">${item.stipend}</div></div>`}
+        <div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-subtle)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Deadline</div><div style="font-weight:700;font-size:0.9rem">${formatDate(item.deadline)}</div></div>
+        <div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-subtle)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">${isComp ? 'Team Size' : 'Duration'}</div><div style="font-weight:700;font-size:0.9rem">${isComp ? item.team : item.duration}</div></div>
       </div>
       <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">About</div>
       <p style="color:var(--text-secondary);font-size:0.875rem;margin-bottom:16px;line-height:1.65">${item.description}</p>
