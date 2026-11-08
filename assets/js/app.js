@@ -492,31 +492,28 @@ function getFilteredInternships() {
 function renderCompetitionCard(c) {
   const isApplied = AUTH.user && AUTH.user.applied.includes(c.id);
   const isSaved = AUTH.user && AUTH.user.saved.includes(c.id);
-  const urgentClass = c.daysLeft <= 10 ? 'deadline-urgent' : '';
+  const urgentClass = c.daysLeft <= 10 ? 'urgent' : '';
+  const typeLabel = c.type === 'hackathon' ? 'Hackathon' : 'Competition';
 
   return `
   <div class="card animate-in" onclick="openDetailModal('${c.id}')">
-    <div class="card-banner" style="background: ${c.banner}">
-      <div class="card-banner-overlay"></div>
-      <span class="card-type-badge badge-${c.type}">${c.type === 'hackathon' ? '🔥 Hackathon' : '🏆 Competition'}</span>
-      <span class="card-deadline ${urgentClass}">⏰ ${c.daysLeft}d left</span>
-    </div>
+    <div class="card-banner ${c.type}"></div>
     <div class="card-body">
-      <div class="card-org">
-        <div class="org-logo">${c.orgLogo}</div>
-        <span>${c.org}</span>
-        <span class="text-muted">•</span>
-        <span>📍 ${c.location}</span>
+      <div class="card-top-row">
+        <div class="card-org">
+          <div class="org-logo">${c.orgLogo}</div>
+          <span>${c.org}</span>
+        </div>
+        <span class="type-pill ${c.type}">${typeLabel}</span>
       </div>
       <div class="card-title">${c.title}</div>
       <div class="card-tags">
-        ${c.tags.map(t => `<span class="tag tag-purple">${t}</span>`).join('')}
-        <span class="tag">${c.mode}</span>
+        ${c.tags.slice(0,3).map(t => `<span class="tag tag-blue">${t}</span>`).join('')}
       </div>
       <div class="card-meta">
-        <span>👥 ${c.participants} registered</span>
-        <span>🗓️ ${formatDate(c.deadline)}</span>
-        <span>👤 ${c.team}</span>
+        <span>${c.participants} registered</span>
+        <span>${c.location}</span>
+        <span>${c.mode}</span>
       </div>
     </div>
     <div class="card-footer">
@@ -524,13 +521,14 @@ function renderCompetitionCard(c) {
         <div class="prize-label">Prize Pool</div>
         <div class="prize-value">${c.prize}</div>
       </div>
-      <div class="flex gap-2">
-        <button class="apply-btn saved" onclick="event.stopPropagation(); saveItem('${c.id}', '${c.title.replace(/'/g, "\\'")}')">
-          ${isSaved ? '🔖 Saved' : '🔖 Save'}
+      <div class="card-actions">
+        <span class="deadline-badge ${urgentClass}">${c.daysLeft}d left</span>
+        <button class="apply-btn save-btn" onclick="event.stopPropagation(); saveItem('${c.id}', '${c.title.replace(/'/g, "\\'")}')">
+          ${isSaved ? 'Saved' : 'Save'}
         </button>
         <button class="apply-btn ${isApplied ? 'applied' : ''}" data-apply="${c.id}"
           onclick="event.stopPropagation(); openApplyModal('${c.id}')">
-          ${isApplied ? '✓ Applied' : 'Apply Now'}
+          ${isApplied ? 'Applied' : 'Apply'}
         </button>
       </div>
     </div>
@@ -539,23 +537,23 @@ function renderCompetitionCard(c) {
 
 function renderInternshipCard(i) {
   const isApplied = AUTH.user && AUTH.user.applied.includes(i.id);
-  const urgentClass = i.daysLeft <= 10 ? 'deadline-urgent' : '';
+  const urgentClass = i.daysLeft <= 10 ? 'urgent' : '';
   return `
   <div class="internship-card animate-in" onclick="openDetailModal('${i.id}')">
     <div class="internship-logo">${i.orgLogo}</div>
     <div class="internship-info">
       <div class="internship-role">${i.role}</div>
-      <div class="internship-org">🏢 ${i.org} &nbsp;•&nbsp; 📍 ${i.location} &nbsp;•&nbsp; ⏳ ${i.duration}</div>
+      <div class="internship-org">${i.org} &nbsp;&middot;&nbsp; ${i.location} &nbsp;&middot;&nbsp; ${i.duration}</div>
       <div class="internship-tags">
         ${i.tags.map(t => `<span class="tag tag-orange">${t}</span>`).join('')}
       </div>
     </div>
     <div class="internship-actions">
       <div class="internship-stipend">${i.stipend}</div>
-      <div class="internship-deadline ${urgentClass}">⏰ ${i.daysLeft}d left</div>
+      <div class="internship-deadline"><span class="deadline-badge ${urgentClass}">${i.daysLeft}d left</span></div>
       <button class="apply-btn btn-sm ${isApplied ? 'applied' : ''}" data-apply="${i.id}"
         onclick="event.stopPropagation(); openApplyModal('${i.id}')">
-        ${isApplied ? '✓ Applied' : 'Apply'}
+        ${isApplied ? 'Applied' : 'Apply'}
       </button>
     </div>
   </div>`;
@@ -600,31 +598,35 @@ function openDetailModal(id) {
 
   const isComp = item.type === 'competition' || item.type === 'hackathon';
   const isApplied = AUTH.user && AUTH.user.applied.includes(id);
+  const typeLabel = isComp ? (item.type === 'hackathon' ? 'Hackathon' : 'Competition') : 'Internship';
 
   document.getElementById('detail-modal-content').innerHTML = `
-    <div style="background:${isComp ? item.banner : 'linear-gradient(135deg,#FF6B35,#c45320)'}; padding:32px 28px; color:white; border-radius: 20px 20px 0 0">
-      <div style="font-size:0.8rem;opacity:0.7;margin-bottom:8px">${isComp ? (item.type === 'hackathon' ? '🔥 HACKATHON' : '🏆 COMPETITION') : '💼 INTERNSHIP'}</div>
-      <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">${item.title || item.role}</h2>
-      <div style="font-size:0.85rem;opacity:0.8">🏢 ${item.org} &nbsp;•&nbsp; 📍 ${item.location || ''}</div>
+    <div style="background:var(--primary);padding:24px;color:white;border-radius:12px 12px 0 0">
+      <div style="font-size:0.72rem;opacity:0.7;margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase">${typeLabel}</div>
+      <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:6px;line-height:1.4">${item.title || item.role}</h2>
+      <div style="font-size:0.82rem;opacity:0.8">${item.org} &nbsp;&middot;&nbsp; ${item.location || ''}</div>
     </div>
-    <div style="padding:24px 28px">
-      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px">
-        ${isComp ? `<div class="sidebar-widget" style="flex:1;min-width:140px;padding:14px;border-radius:12px"><div class="text-muted text-sm">Prize Pool</div><div class="prize-value" style="font-size:1.1rem">${item.prize}</div></div>` : `<div class="sidebar-widget" style="flex:1;min-width:140px;padding:14px;border-radius:12px"><div class="text-muted text-sm">Stipend</div><div class="prize-value" style="font-size:1.1rem">${item.stipend}</div></div>`}
-        <div class="sidebar-widget" style="flex:1;min-width:140px;padding:14px;border-radius:12px"><div class="text-muted text-sm">Deadline</div><div style="font-weight:700;color:var(--text-primary)">${formatDate(item.deadline)}</div></div>
-        <div class="sidebar-widget" style="flex:1;min-width:140px;padding:14px;border-radius:12px"><div class="text-muted text-sm">${isComp ? 'Team Size' : 'Duration'}</div><div style="font-weight:700;color:var(--text-primary)">${isComp ? item.team : item.duration}</div></div>
+    <div style="padding:20px 24px">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">
+        ${isComp
+          ? `<div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Prize Pool</div><div style="font-weight:700;font-size:0.95rem">${item.prize}</div></div>`
+          : `<div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Stipend</div><div style="font-weight:700;font-size:0.95rem">${item.stipend}</div></div>`}
+        <div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Deadline</div><div style="font-weight:700;font-size:0.9rem">${formatDate(item.deadline)}</div></div>
+        <div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">${isComp ? 'Team Size' : 'Duration'}</div><div style="font-weight:700;font-size:0.9rem">${isComp ? item.team : item.duration}</div></div>
       </div>
-      <h4 style="font-weight:700;margin-bottom:8px">About</h4>
-      <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px;line-height:1.7">${item.description}</p>
-      <h4 style="font-weight:700;margin-bottom:8px">Eligibility</h4>
-      <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px">${item.eligibility}</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        ${item.tags.map(t => `<span class="tag tag-purple">${t}</span>`).join('')}
+      <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">About</div>
+      <p style="color:var(--text-secondary);font-size:0.875rem;margin-bottom:16px;line-height:1.65">${item.description}</p>
+      <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">Eligibility</div>
+      <p style="color:var(--text-secondary);font-size:0.875rem;margin-bottom:16px">${item.eligibility}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px">
+        ${item.tags.map(t => `<span class="tag tag-blue">${t}</span>`).join('')}
       </div>
-      <div style="margin-top:24px;display:flex;gap:12px">
-        <button class="btn btn-primary w-full ${isApplied ? '' : ''}" style="justify-content:center;flex:1" onclick="${isApplied ? '' : `openApplyModal('${id}'); closeDetailModal()`}">
-          ${isApplied ? '✓ Already Applied' : '🚀 Apply Now'}
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="${isApplied ? '' : `openApplyModal('${id}'); closeDetailModal()`}"
+          ${isApplied ? 'disabled style="opacity:0.6;cursor:default;flex:1;justify-content:center"' : ''}>
+          ${isApplied ? 'Already Applied' : 'Apply Now'}
         </button>
-        <button class="btn btn-ghost" onclick="saveItem('${id}', '${(item.title || item.role).replace(/'/g, "\\'")}'); closeDetailModal()">🔖 Save</button>
+        <button class="btn btn-ghost" onclick="saveItem('${id}', '${(item.title || item.role).replace(/'/g, "\\'")}'); closeDetailModal()">Save</button>
       </div>
     </div>`;
 
@@ -722,3 +724,4 @@ document.addEventListener('DOMContentLoaded', () => {
   const navSearch = document.getElementById('nav-search-input');
   if (navSearch) navSearch.addEventListener('input', (e) => setSearch(e.target.value));
 });
+
