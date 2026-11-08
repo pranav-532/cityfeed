@@ -31,7 +31,7 @@ const COMPETITIONS = [
     title: 'National Case Study Challenge 2026',
     org: 'Apex Case League',
     orgLogo: '🏆',
-    banner: 'linear-gradient(135deg, #3b5a75, #2d465c)',
+    banner: 'linear-gradient(135deg, #2c465e, #1e3243)',
     tags: ['Case Study', 'Business Strategy', 'Open for All'],
     prize: '₹1,00,000',
     deadline: '2026-11-25',

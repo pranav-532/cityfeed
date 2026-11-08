@@ -4,10 +4,10 @@
    ============================================================ */
 
 :root {
-  /* Soft, muted slate palette */
-  --primary:        #3b5a75;
-  --primary-dark:   #2d465c;
-  --primary-light:  #e7eff5;
+  /* Soft, muted slate palette - slightly deeper */
+  --primary:        #2c465e;
+  --primary-dark:   #1e3243;
+  --primary-light:  #e2eaf0;
   --secondary:      #c26838;
   --secondary-light:#f7ede6;
   --accent-green:   #3b755d;
@@ -21,7 +21,7 @@
   --surface:        #f6f8fa;
   --surface-subtle: #e5ebf0;
   --border:         #d4dce4;
-  --border-focus:   #3b5a75;
+  --border-focus:   #2c465e;
   
   --radius:         8px;
   --radius-lg:      12px;
@@ -122,7 +122,7 @@ img { max-width: 100%; display: block; }
 .nav-search input:focus {
   border-color: var(--primary);
   background: var(--surface);
-  box-shadow: 0 0 0 3px rgba(59,90,117,0.12);
+  box-shadow: 0 0 0 3px rgba(44,70,94,0.12);
 }
 .nav-search .search-icon {
   position: absolute;
@@ -859,7 +859,7 @@ img { max-width: 100%; display: block; }
 }
 .form-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(59,90,117,0.12);
+  box-shadow: 0 0 0 3px rgba(44,70,94,0.12);
 }
 select.form-input { cursor: pointer; }
 textarea.form-input { resize: vertical; }
