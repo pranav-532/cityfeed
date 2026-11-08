@@ -1,5 +1,5 @@
 // ============================================================
-// CityFeed — Application State & Data
+// CityFeed: Application State & Data
 // IIT Madras | MS2002 Course Project
 // ============================================================
 
@@ -41,17 +41,17 @@ const COMPETITIONS = [
     mode: 'Hybrid',
     description: 'India\'s premier case study challenge. Tackle real business problems from top companies. Chennai regional finals to be hosted at IIT Madras Research Park.',
     eligibility: 'Open to all UG/PG students',
-    team: '2–4 members',
+    team: '2-4 members',
     registerLink: '#',
     featured: true
   },
   {
     id: 'c2',
     type: 'hackathon',
-    title: 'Smart India Hackathon — Internal Hackathon (IITM Round)',
+    title: 'Smart India Hackathon - Internal Round (IIT Madras)',
     org: 'IIT Madras',
     orgLogo: '🎓',
-    banner: 'linear-gradient(135deg, #00C9A7, #0d3b5e)',
+    banner: 'linear-gradient(135deg, #0f2b48, #081a2e)',
     tags: ['Hackathon', 'Government', 'Problem Solving'],
     prize: '₹50,000',
     deadline: '2026-11-30',
@@ -81,14 +81,14 @@ const COMPETITIONS = [
     mode: 'Offline',
     description: 'Present your startup idea to a panel of VCs and industry leaders. Top 5 teams get incubation support at IITM\'s startup incubator (IITM Incubation Cell).',
     eligibility: 'Chennai cluster colleges',
-    team: '2–5 members',
+    team: '2-5 members',
     registerLink: '#',
     featured: false
   },
   {
     id: 'c4',
     type: 'hackathon',
-    title: 'Chennai Hacks 3.0 — 24-Hour Hackathon',
+    title: 'Chennai Hacks 3.0: 24-Hour Hackathon',
     org: 'CodeChef VIT Chennai',
     orgLogo: '⚡',
     banner: 'linear-gradient(135deg, #2d1070, #00C9A7)',
@@ -101,14 +101,14 @@ const COMPETITIONS = [
     mode: 'Offline',
     description: 'Build innovative solutions in 24 hours. Themes: Climate Tech, EdTech, FinTech. Free food and accommodation for participants.',
     eligibility: 'Open to all Chennai colleges',
-    team: '3–5 members',
+    team: '3-5 members',
     registerLink: '#',
     featured: false
   },
   {
     id: 'c5',
     type: 'competition',
-    title: 'TechTatva Design Challenge — UI/UX Track',
+    title: 'TechTatva Design Challenge: UI/UX Track',
     org: 'MIT Manipal (Online)',
     orgLogo: '🎨',
     banner: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
@@ -128,7 +128,7 @@ const COMPETITIONS = [
   {
     id: 'c6',
     type: 'competition',
-    title: 'Shaastra Finance League — Stock Market Simulation',
+    title: 'Shaastra Finance League: Stock Simulation',
     org: 'Shaastra, IIT Madras',
     orgLogo: '📈',
     banner: 'linear-gradient(135deg, #065f46, #00C9A7)',
@@ -141,14 +141,14 @@ const COMPETITIONS = [
     mode: 'Hybrid',
     description: 'India\'s top student-run stock market simulation. Online prelims, offline finals at Shaastra 2027. Mentored by IITM Finance & Investment Club.',
     eligibility: 'All UG students',
-    team: '2–3 members',
+    team: '2-3 members',
     registerLink: '#',
     featured: false
   },
   {
     id: 'c7',
     type: 'hackathon',
-    title: 'Google Solution Challenge — IITM Chapter Qualifier',
+    title: 'Google Solution Challenge: IITM Qualifier',
     org: 'GDSC IIT Madras',
     orgLogo: '🌐',
     banner: 'linear-gradient(135deg, #1a73e8, #0d3b5e)',
@@ -161,14 +161,14 @@ const COMPETITIONS = [
     mode: 'Hybrid',
     description: 'Build a solution using Google technologies that addresses one of the UN Sustainable Development Goals. Top IITM team qualifies for the global challenge.',
     eligibility: 'IITM students',
-    team: '3–4 members',
+    team: '3-4 members',
     registerLink: '#',
     featured: false
   },
   {
     id: 'c8',
     type: 'competition',
-    title: 'Pragyan Quiz — Technical Quiz Challenge',
+    title: 'Pragyan Quiz: Technical Quiz Challenge',
     org: 'Pragyan, NIT Trichy',
     orgLogo: '🧠',
     banner: 'linear-gradient(135deg, #7c2d12, #FF6B35)',
@@ -231,7 +231,7 @@ const INTERNSHIPS = [
     stipend: '₹30,000/mo',
     deadline: '2026-11-25',
     daysLeft: 17,
-    duration: '3–6 months',
+    duration: '3-6 months',
     location: 'Coimbatore (Hybrid)',
     description: 'Research on predictive maintenance using sensor data for automotive applications. Python, ML frameworks required.',
     eligibility: 'B.Tech/M.Tech 3rd year+',
@@ -418,19 +418,48 @@ function switchAuthTab(tab) {
 }
 
 function openApplyModal(id) {
-  if (!AUTH.isLoggedIn) { openAuthModal(); showToast('Please login to apply', 'info', '🔒'); return; }
+  if (!AUTH.isLoggedIn) {
+    openAuthModal();
+    showToast('Please login to continue application', 'info', '🔒');
+    return;
+  }
   const item = [...COMPETITIONS, ...INTERNSHIPS].find(x => x.id === id);
   if (!item) return;
 
   if (AUTH.user.applied.includes(id)) {
-    showToast('You have already applied!', 'info', '✅');
+    showToast('You have already applied for this opportunity!', 'info', '✓');
     return;
   }
 
   const modal = document.getElementById('apply-modal');
   document.getElementById('apply-modal-title').textContent = item.title || item.role;
-  document.getElementById('apply-modal-org').textContent = item.org;
+  document.getElementById('apply-modal-org').textContent = `${item.org} • ${item.location || 'Chennai'}`;
   document.getElementById('apply-item-id').value = id;
+
+  // Pre-fill student academic profile data from AUTH.user
+  const nameEl = document.getElementById('app-fullname');
+  if (nameEl) nameEl.value = AUTH.user.name || 'Pranav Kolekar';
+  const emailEl = document.getElementById('app-email');
+  if (emailEl) emailEl.value = AUTH.user.email || 'demo@iitm.ac.in';
+  const rollEl = document.getElementById('app-rollno');
+  if (rollEl) rollEl.value = AUTH.user.rollno || 'CH25B071';
+  const collegeEl = document.getElementById('app-college');
+  if (collegeEl) collegeEl.value = AUTH.user.college || 'IIT Madras';
+  const deptEl = document.getElementById('app-dept');
+  if (deptEl) deptEl.value = AUTH.user.dept || 'Chemical Engineering';
+  const degreeEl = document.getElementById('app-degree');
+  if (degreeEl) degreeEl.value = 'B.Tech';
+  const yearEl = document.getElementById('app-year');
+  if (yearEl) yearEl.value = '1st Year';
+  const locEl = document.getElementById('app-location');
+  if (locEl) locEl.value = 'Chennai (IIT Madras Campus)';
+  const cgpaEl = document.getElementById('app-cgpa');
+  if (cgpaEl) cgpaEl.value = '8.65 / 10';
+
+  const indRadio = document.querySelector('input[name="participationType"][value="Individual"]');
+  if (indRadio) indRadio.checked = true;
+  toggleTeamFields(false);
+
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -440,13 +469,56 @@ function closeApplyModal() {
   document.body.style.overflow = '';
 }
 
+function toggleTeamFields(isTeam) {
+  const teamBox = document.getElementById('team-fields-box');
+  if (teamBox) {
+    teamBox.style.display = isTeam ? 'block' : 'none';
+  }
+}
+
 function submitApplication(e) {
   e.preventDefault();
   const id = document.getElementById('apply-item-id').value;
   const item = [...COMPETITIONS, ...INTERNSHIPS].find(x => x.id === id);
   if (!item) return;
+
+  // Capture submitted application details
+  const appData = {
+    itemId: id,
+    itemTitle: item.title || item.role,
+    submittedAt: new Date().toISOString(),
+    fullName: document.getElementById('app-fullname')?.value || AUTH.user.name,
+    email: document.getElementById('app-email')?.value || AUTH.user.email,
+    phone: document.getElementById('app-phone')?.value || '',
+    gender: document.getElementById('app-gender')?.value || '',
+    location: document.getElementById('app-location')?.value || '',
+    college: document.getElementById('app-college')?.value || AUTH.user.college,
+    degree: document.getElementById('app-degree')?.value || '',
+    department: document.getElementById('app-dept')?.value || '',
+    year: document.getElementById('app-year')?.value || '',
+    rollNo: document.getElementById('app-rollno')?.value || '',
+    cgpa: document.getElementById('app-cgpa')?.value || '',
+    participationType: document.querySelector('input[name="participationType"]:checked')?.value || 'Individual',
+    teamName: document.getElementById('app-team-name')?.value || '',
+    teamSize: document.getElementById('app-team-size')?.value || '',
+    teamMembers: document.getElementById('app-team-members')?.value || '',
+    linkedin: document.getElementById('app-linkedin')?.value || '',
+    portfolio: document.getElementById('app-portfolio')?.value || '',
+    skills: document.getElementById('app-skills')?.value || '',
+    experience: document.getElementById('app-experience')?.value || '',
+    motivation: document.getElementById('app-motivation')?.value || '',
+    resumeLink: document.getElementById('app-resume-link')?.value || '',
+    referral: document.getElementById('app-referral')?.value || ''
+  };
+
+  if (!AUTH.user.applicationsData) {
+    AUTH.user.applicationsData = {};
+  }
+  AUTH.user.applicationsData[id] = appData;
+
   applyTo(id, item.title || item.role);
   closeApplyModal();
+  showToast(`Application submitted for "${item.title || item.role}"! Confirmation sent to ${appData.email}`, 'success', '🚀');
 }
 
 // ── Filter ──
@@ -601,32 +673,33 @@ function openDetailModal(id) {
   const typeLabel = isComp ? (item.type === 'hackathon' ? 'Hackathon' : 'Competition') : 'Internship';
 
   document.getElementById('detail-modal-content').innerHTML = `
-    <div style="background:var(--primary);padding:24px;color:#f6f8fa;border-radius:12px 12px 0 0">
-      <div style="font-size:0.72rem;opacity:0.75;margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase">${typeLabel}</div>
-      <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:6px;line-height:1.4;color:#f6f8fa">${item.title || item.role}</h2>
-      <div style="font-size:0.82rem;opacity:0.85">${item.org} &nbsp;&middot;&nbsp; ${item.location || ''}</div>
+    <div class="detail-modal-header">
+      <button class="modal-header-close" onclick="closeDetailModal()">✕</button>
+      <div class="detail-badge">${typeLabel}</div>
+      <h2>${item.title || item.role}</h2>
+      <div class="detail-meta">${item.org} &bull; ${item.location || 'Chennai Cluster'}</div>
     </div>
-    <div style="padding:20px 24px;background:var(--surface)">
+    <div class="detail-modal-body">
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">
         ${isComp
-          ? `<div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-subtle)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Prize Pool</div><div style="font-weight:700;font-size:0.95rem">${item.prize}</div></div>`
-          : `<div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-subtle)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Stipend</div><div style="font-weight:700;font-size:0.95rem">${item.stipend}</div></div>`}
-        <div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-subtle)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">Deadline</div><div style="font-weight:700;font-size:0.9rem">${formatDate(item.deadline)}</div></div>
-        <div style="flex:1;min-width:120px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-subtle)"><div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px">${isComp ? 'Team Size' : 'Duration'}</div><div style="font-weight:700;font-size:0.9rem">${isComp ? item.team : item.duration}</div></div>
+          ? `<div class="detail-stat-card"><div class="detail-stat-label">Prize Pool</div><div class="detail-stat-val">${item.prize}</div></div>`
+          : `<div class="detail-stat-card"><div class="detail-stat-label">Stipend</div><div class="detail-stat-val">${item.stipend}</div></div>`}
+        <div class="detail-stat-card"><div class="detail-stat-label">Deadline</div><div class="detail-stat-val" style="font-size:0.98rem">${formatDate(item.deadline)}</div></div>
+        <div class="detail-stat-card"><div class="detail-stat-label">${isComp ? 'Team Size' : 'Duration'}</div><div class="detail-stat-val" style="font-size:0.98rem">${isComp ? item.team : item.duration}</div></div>
       </div>
-      <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">About</div>
-      <p style="color:var(--text-secondary);font-size:0.875rem;margin-bottom:16px;line-height:1.65">${item.description}</p>
-      <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">Eligibility</div>
-      <p style="color:var(--text-secondary);font-size:0.875rem;margin-bottom:16px">${item.eligibility}</p>
-      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px">
+      <div class="detail-section-title">About This Opportunity</div>
+      <p class="detail-section-desc">${item.description}</p>
+      <div class="detail-section-title">Eligibility Criteria</div>
+      <p class="detail-section-desc" style="font-weight:600">${item.eligibility}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 20px">
         ${item.tags.map(t => `<span class="tag tag-blue">${t}</span>`).join('')}
       </div>
       <div style="display:flex;gap:10px">
-        <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="${isApplied ? '' : `openApplyModal('${id}'); closeDetailModal()`}"
+        <button class="btn btn-primary" style="flex:1;justify-content:center;padding:12px;font-size:0.92rem" onclick="${isApplied ? '' : `openApplyModal('${id}'); closeDetailModal()`}"
           ${isApplied ? 'disabled style="opacity:0.6;cursor:default;flex:1;justify-content:center"' : ''}>
-          ${isApplied ? 'Already Applied' : 'Apply Now'}
+          ${isApplied ? '✓ Already Applied' : 'Apply Now'}
         </button>
-        <button class="btn btn-ghost" onclick="saveItem('${id}', '${(item.title || item.role).replace(/'/g, "\\'")}'); closeDetailModal()">Save</button>
+        <button class="btn btn-ghost" style="padding:12px 20px;font-size:0.92rem" onclick="saveItem('${id}', '${(item.title || item.role).replace(/'/g, "\\'")}'); closeDetailModal()">Save</button>
       </div>
     </div>`;
 

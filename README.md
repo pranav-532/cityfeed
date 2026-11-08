@@ -1,4 +1,4 @@
-# ⚡ CityFeed — Hyper-Local Campus Event Discovery Platform
+# ⚡ CityFeed - Hyper-Local Campus Event Discovery Platform
 
 > **IIT Madras | MS2002: Innovation & Entrepreneurship for Engineers**  
 > **Team:** Batch A, Group 48 · November 2026
@@ -7,7 +7,7 @@
 
 ## 🌟 What is CityFeed?
 
-**CityFeed** is a hyper-local campus event discovery and micro-sponsorship platform for college students in Chennai — tailored directly for your city's college cluster (IITM, Anna University, SRM, VIT Chennai).
+**CityFeed** is a hyper-local campus event discovery and micro-sponsorship platform for college students in Chennai - tailored directly for your city's college cluster (IITM, Anna University, SRM, VIT Chennai).
 
 **Problem Solved:** Thousands of students in every city miss out on accessible local competitions, hackathons, and internships because publicity is trapped inside closed WhatsApp groups and college notice boards. Simultaneously, local businesses waste money on paper flyers trying to reach students with zero measurable ROI.
 
@@ -78,7 +78,7 @@ cityfeed/
 |------------|---------|---------|----------|
 | Product Management Intern | OLA Electric | ₹25,000/mo | 6 months |
 | SDE Intern | Zoho Corporation | ₹20,000/mo | 6 months |
-| Data Science Research | Robert Bosch India | ₹30,000/mo | 3–6 months |
+| Data Science Research | Robert Bosch India | ₹30,000/mo | 3-6 months |
 | Business Development | Freshworks | ₹15,000/mo | 3 months |
 | UX Design Intern | Chargebee | ₹18,000/mo | 3 months |
 | Chemical Process Intern | Madras Fertilizers Ltd | ₹12,000/mo | 2 months |
@@ -99,9 +99,9 @@ cityfeed/
 
 ## 🛠️ Tech Stack
 
-- **Pure HTML5 + CSS3 + Vanilla JavaScript** — Zero dependencies, works everywhere
-- **GitHub Pages** — Free hosting with zero backend needed
-- **Local Storage** (future) — For persisting sessions
+- **Pure HTML5 + CSS3 + Vanilla JavaScript** : Zero dependencies, works everywhere
+- **GitHub Pages** : Free hosting with zero backend needed
+- **Local Storage** (future) : For persisting sessions
 - Google Fonts (Inter)
 
 ---
