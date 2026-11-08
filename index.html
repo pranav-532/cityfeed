@@ -78,6 +78,7 @@
      ============================================================ -->
 <div class="filter-bar">
   <button class="filter-chip active" data-filter="all" onclick="setFilter('all')">All</button>
+  <button class="filter-chip" data-filter="applied" onclick="setFilter('applied')">Applied <span id="filter-applied-pill" class="tag tag-green" style="font-size:0.7rem;padding:1px 6px;margin-left:4px;display:none">0</span></button>
   <button class="filter-chip" data-filter="competition" onclick="setFilter('competition')">Competitions</button>
   <button class="filter-chip" data-filter="hackathon" onclick="setFilter('hackathon')">Hackathons</button>
   <button class="filter-chip" data-filter="internship" onclick="setFilter('internship')">Internships</button>
@@ -111,6 +112,20 @@
             </div>
           </div>
         </div>
+
+        <!-- Applied Opportunities Section -->
+        <section id="applied-section" style="margin-bottom: 40px">
+          <div class="section-header">
+            <div style="display:flex;align-items:center;gap:10px">
+              <h2 class="section-title">Your Applied Opportunities</h2>
+              <span class="tag tag-green" id="applied-section-count" style="font-weight:700">0 applied</span>
+            </div>
+            <a href="pages/profile.html" class="btn btn-ghost btn-sm">Full Tracker in Profile →</a>
+          </div>
+          <div id="applied-content-container">
+            <!-- JS rendered via renderAppliedSection -->
+          </div>
+        </section>
 
         <!-- Competitions Section -->
         <section id="competitions-section">

@@ -560,13 +560,18 @@
       </div>`).join('')}</div>`;
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    // If not logged in, redirect to login
-    if (!AUTH.isLoggedIn) {
-      // Show not-logged-in state
-      return;
+  window.onAuthChange = () => {
+    if (AUTH.isLoggedIn) {
+      renderApplicationsList();
+      renderSavedList();
     }
-    renderApplicationsList();
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (AUTH.isLoggedIn) {
+      renderApplicationsList();
+      renderSavedList();
+    }
   });
 </script>
 </body>

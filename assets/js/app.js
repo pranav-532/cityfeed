@@ -3,7 +3,7 @@
 // IIT Madras | MS2002 Course Project
 // ============================================================
 
-// ── Auth State ──
+// ── Auth State & Persistence ──
 const AUTH = {
   isLoggedIn: false,
   user: null,
@@ -19,9 +19,45 @@ const AUTH = {
     appliedCount: 0,
     savedCount: 0,
     applied: [],
-    saved: []
+    saved: [],
+    applicationsData: {}
   }
 };
+
+function loadAuthState() {
+  try {
+    const isLogged = localStorage.getItem('cityfeed_is_logged_in');
+    const savedUser = localStorage.getItem('cityfeed_auth_user');
+    if (isLogged === 'true' && savedUser) {
+      AUTH.isLoggedIn = true;
+      AUTH.user = JSON.parse(savedUser);
+      if (!AUTH.user.applied) AUTH.user.applied = [];
+      if (!AUTH.user.saved) AUTH.user.saved = [];
+      if (!AUTH.user.applicationsData) AUTH.user.applicationsData = {};
+      AUTH.user.appliedCount = AUTH.user.applied.length;
+      AUTH.user.savedCount = AUTH.user.saved.length;
+    }
+  } catch (err) {
+    console.warn('localStorage read error:', err);
+  }
+}
+
+function saveAuthState() {
+  try {
+    if (AUTH.isLoggedIn && AUTH.user) {
+      localStorage.setItem('cityfeed_is_logged_in', 'true');
+      localStorage.setItem('cityfeed_auth_user', JSON.stringify(AUTH.user));
+    } else {
+      localStorage.removeItem('cityfeed_is_logged_in');
+      localStorage.removeItem('cityfeed_auth_user');
+    }
+  } catch (err) {
+    console.warn('localStorage write error:', err);
+  }
+}
+
+// Immediately load auth state on file evaluation
+loadAuthState();
 
 // ── Competitions Data ──
 const COMPETITIONS = [
@@ -315,8 +351,18 @@ function showToast(msg, type = 'info', icon = '✓') {
 function login(email, password) {
   if (email === AUTH.demoUser.email && password === AUTH.demoUser.password) {
     AUTH.isLoggedIn = true;
-    AUTH.user = { ...AUTH.demoUser };
+    let existing = null;
+    try {
+      const raw = localStorage.getItem('cityfeed_auth_user');
+      if (raw) existing = JSON.parse(raw);
+    } catch (e) {}
+    AUTH.user = existing || { ...AUTH.demoUser };
+    if (!AUTH.user.applied) AUTH.user.applied = [];
+    if (!AUTH.user.saved) AUTH.user.saved = [];
+    if (!AUTH.user.applicationsData) AUTH.user.applicationsData = {};
+    saveAuthState();
     updateAuthUI();
+    renderContent();
     return { success: true };
   }
   return { success: false, error: 'Invalid email or password. Try the demo credentials.' };
@@ -325,17 +371,27 @@ function login(email, password) {
 function logout() {
   AUTH.isLoggedIn = false;
   AUTH.user = null;
+  saveAuthState();
   updateAuthUI();
+  renderContent();
   showToast('Logged out successfully', 'info', '👋');
 }
 
 function updateAuthUI() {
   const loggedIn = AUTH.isLoggedIn;
   document.querySelectorAll('.show-logged-in').forEach(el => {
-    el.style.display = loggedIn ? 'flex' : 'none';
+    if (el.id === 'logged-in-view') {
+      el.style.display = loggedIn ? 'block' : 'none';
+    } else {
+      el.style.display = loggedIn ? (el.dataset.display || 'flex') : 'none';
+    }
   });
   document.querySelectorAll('.show-logged-out').forEach(el => {
-    el.style.display = loggedIn ? 'none' : 'flex';
+    if (el.id === 'not-logged-in') {
+      el.style.display = loggedIn ? 'none' : 'block';
+    } else {
+      el.style.display = loggedIn ? 'none' : (el.dataset.display || 'flex');
+    }
   });
   if (loggedIn && AUTH.user) {
     document.querySelectorAll('.user-name-display').forEach(el => { el.textContent = AUTH.user.name; });
@@ -343,8 +399,11 @@ function updateAuthUI() {
     document.querySelectorAll('.user-college-display').forEach(el => { el.textContent = AUTH.user.college; });
     document.querySelectorAll('.user-year-display').forEach(el => { el.textContent = AUTH.user.year; });
     document.querySelectorAll('.user-dept-display').forEach(el => { el.textContent = AUTH.user.dept; });
-    document.querySelectorAll('.applied-count').forEach(el => { el.textContent = AUTH.user.applied.length; });
-    document.querySelectorAll('.saved-count').forEach(el => { el.textContent = AUTH.user.saved.length; });
+    document.querySelectorAll('.applied-count').forEach(el => { el.textContent = (AUTH.user.applied || []).length; });
+    document.querySelectorAll('.saved-count').forEach(el => { el.textContent = (AUTH.user.saved || []).length; });
+  }
+  if (typeof window.onAuthChange === 'function') {
+    window.onAuthChange();
   }
 }
 
@@ -368,13 +427,16 @@ function applyTo(id, title) {
     showToast('Please login to apply', 'info', '🔒');
     return;
   }
+  if (!AUTH.user.applied) AUTH.user.applied = [];
   if (AUTH.user.applied.includes(id)) {
     showToast('You have already applied!', 'info', '✅');
     return;
   }
   AUTH.user.applied.push(id);
-  AUTH.user.appliedCount++;
+  AUTH.user.appliedCount = AUTH.user.applied.length;
+  saveAuthState();
   updateAuthUI();
+  renderContent();
   showToast(`Applied to "${title}" successfully!`, 'success', '🎉');
   // Update button states
   document.querySelectorAll(`[data-apply="${id}"]`).forEach(btn => {
@@ -388,6 +450,7 @@ function applyTo(id, title) {
 // ── Save ──
 function saveItem(id, title) {
   if (!AUTH.isLoggedIn) { openAuthModal(); return; }
+  if (!AUTH.user.saved) AUTH.user.saved = [];
   const idx = AUTH.user.saved.indexOf(id);
   if (idx === -1) {
     AUTH.user.saved.push(id);
@@ -396,7 +459,10 @@ function saveItem(id, title) {
     AUTH.user.saved.splice(idx, 1);
     showToast('Removed from saved', 'info', '🗑️');
   }
+  AUTH.user.savedCount = AUTH.user.saved.length;
+  saveAuthState();
   updateAuthUI();
+  renderContent();
 }
 
 // ── Open/Close modals ──
@@ -640,6 +706,8 @@ function renderContent() {
   const compSection = document.getElementById('competitions-section');
   const internSection = document.getElementById('internships-section');
 
+  renderAppliedSection();
+
   if (compGrid) {
     if (comps.length === 0) {
       compGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="icon">🔍</div><h3>No results</h3><p>Try a different search or filter</p></div>`;
@@ -647,7 +715,11 @@ function renderContent() {
       compGrid.innerHTML = comps.map(renderCompetitionCard).join('');
     }
     if (compSection) {
-      compSection.style.display = (activeFilter === 'all' || activeFilter !== 'internship') ? 'block' : 'none';
+      if (activeFilter === 'applied') {
+        compSection.style.display = 'none';
+      } else {
+        compSection.style.display = (activeFilter === 'all' || activeFilter !== 'internship') ? 'block' : 'none';
+      }
     }
   }
 
@@ -658,9 +730,110 @@ function renderContent() {
       internList.innerHTML = interns.map(renderInternshipCard).join('');
     }
     if (internSection) {
-      internSection.style.display = (activeFilter === 'all' || activeFilter === 'internship') ? 'block' : 'none';
+      if (activeFilter === 'applied') {
+        internSection.style.display = 'none';
+      } else {
+        internSection.style.display = (activeFilter === 'all' || activeFilter === 'internship') ? 'block' : 'none';
+      }
     }
   }
+}
+
+function renderAppliedSection() {
+  const container = document.getElementById('applied-content-container');
+  const countBadge = document.getElementById('applied-section-count');
+  const pillCount = document.getElementById('filter-applied-pill');
+  const appliedSection = document.getElementById('applied-section');
+
+  if (!container) return;
+
+  const appliedIds = (AUTH.isLoggedIn && AUTH.user && Array.isArray(AUTH.user.applied)) ? AUTH.user.applied : [];
+  const appliedItems = [...COMPETITIONS, ...INTERNSHIPS].filter(x => appliedIds.includes(x.id));
+
+  if (countBadge) {
+    countBadge.textContent = `${appliedItems.length} applied`;
+  }
+  if (pillCount) {
+    pillCount.textContent = appliedItems.length;
+    pillCount.style.display = appliedItems.length > 0 ? 'inline-block' : 'none';
+  }
+
+  if (appliedSection) {
+    if (activeFilter === 'applied' || activeFilter === 'all') {
+      appliedSection.style.display = 'block';
+    } else {
+      appliedSection.style.display = 'none';
+    }
+  }
+
+  if (!AUTH.isLoggedIn) {
+    container.innerHTML = `
+      <div style="background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--radius-lg);padding:24px 20px;text-align:center">
+        <div style="font-size:1.8rem;margin-bottom:6px">🔒</div>
+        <h3 style="font-size:1rem;font-weight:800;color:var(--text-primary);margin-bottom:4px">Track Your Applications</h3>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:14px;max-width:440px;margin-left:auto;margin-right:auto">
+          Log in with your college account to view your submitted applications, team registrations, and real-time status.
+        </p>
+        <button class="btn btn-primary btn-sm" onclick="openAuthModal('login')">Log In with Demo Account</button>
+      </div>`;
+    return;
+  }
+
+  if (appliedItems.length === 0) {
+    container.innerHTML = `
+      <div style="background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--radius-lg);padding:26px 20px;text-align:center">
+        <div style="font-size:2rem;margin-bottom:6px">📋</div>
+        <h3 style="font-size:1rem;font-weight:800;color:var(--text-primary);margin-bottom:4px">No Applications Submitted Yet</h3>
+        <p style="font-size:0.85rem;color:var(--text-secondary);max-width:460px;margin:0 auto 12px">
+          You haven't applied to any opportunities yet. Click <strong>"Apply"</strong> on any competition, hackathon, or internship below to submit your details and track your application here.
+        </p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="cards-grid">
+      ${appliedItems.map(item => {
+        const data = (AUTH.user.applicationsData && AUTH.user.applicationsData[item.id]) || {};
+        const teamText = data.teamName ? `Team: ${data.teamName}` : (data.participationType || 'Individual');
+        const isComp = item.type === 'competition' || item.type === 'hackathon';
+        const typeLabel = isComp ? (item.type === 'hackathon' ? 'Hackathon' : 'Competition') : 'Internship';
+
+        return `
+        <div class="card animate-in" style="border: 1.5px solid #86efac; box-shadow: 0 2px 8px rgba(22,101,52,0.06)">
+          <div class="card-banner ${item.type || 'competition'}"></div>
+          <div class="card-body">
+            <div class="card-top-row">
+              <div class="card-org">
+                <div class="org-logo">${item.orgLogo}</div>
+                <span>${item.org}</span>
+              </div>
+              <span class="type-pill ${item.type || 'competition'}">${typeLabel}</span>
+            </div>
+            <div class="card-title" style="margin-top:4px">${item.title || item.role}</div>
+            <div style="background:var(--surface-subtle);border:1px solid var(--border);border-radius:6px;padding:8px 10px;margin:10px 0 12px;font-size:0.78rem;color:var(--text-secondary);line-height:1.45">
+              <div><strong>Registration:</strong> ${teamText}</div>
+              <div><strong>Department:</strong> ${data.department || AUTH.user.dept || 'Engineering'}</div>
+              <div><strong>Roll No:</strong> ${data.rollNo || AUTH.user.rollno || 'CH25B071'}</div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+              <span class="tag tag-green" style="font-weight:700">✓ Submitted</span>
+              <span class="tag tag-blue" style="font-weight:700">Under Review</span>
+              <span style="font-size:0.75rem;color:var(--text-muted);margin-left:auto">⏰ ${item.daysLeft}d left</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div>
+              <div class="prize-label">${isComp ? 'Prize Pool' : 'Stipend'}</div>
+              <div class="prize-value">${item.prize || item.stipend || 'Recognized'}</div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-outline btn-sm" onclick="openDetailModal('${item.id}')">View Details</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
 }
 
 // ── Detail Modal ──
@@ -729,9 +902,10 @@ function renderSidebarDeadlines() {
 
 // ── Init ──
 document.addEventListener('DOMContentLoaded', () => {
+  loadAuthState();
+  updateAuthUI();
   renderContent();
   renderSidebarDeadlines();
-  updateAuthUI();
 
   // Close modals on overlay click
   document.querySelectorAll('.modal-overlay').forEach(overlay => {
@@ -764,7 +938,7 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.textContent = 'Login';
           btn.disabled = false;
         }
-      }, 700);
+      }, 500);
     });
   }
 
@@ -779,11 +953,17 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         // Auto-login with demo user for prototype
         AUTH.isLoggedIn = true;
-        AUTH.user = { ...AUTH.demoUser, name: document.getElementById('signup-name').value || AUTH.demoUser.name, avatar: (document.getElementById('signup-name').value || 'PK').substring(0, 2).toUpperCase() };
+        AUTH.user = {
+          ...AUTH.demoUser,
+          name: document.getElementById('signup-name').value || AUTH.demoUser.name,
+          avatar: (document.getElementById('signup-name').value || 'PK').substring(0, 2).toUpperCase()
+        };
+        saveAuthState();
         updateAuthUI();
+        renderContent();
         closeAuthModal();
         showToast('Account created! Welcome to CityFeed 🎉', 'success', '🌟');
-      }, 1000);
+      }, 700);
     });
   }
 
