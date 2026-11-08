@@ -4,34 +4,35 @@
    ============================================================ */
 
 :root {
-  /* Rich Collegiate Navy Palette - Slightly less dark, distinguished & crisp */
-  --primary:        #103b66;
-  --primary-dark:   #0a2644;
-  --primary-light:  #e4edf6;
-  --primary-hover:  #154b82;
-  --secondary:      #b45309;
-  --secondary-light:#fef3c7;
-  --accent-green:   #15803d;
-  --accent-green-bg:#dcfce7;
+  /* Marina Palette Theme */
+  --primary:          #326080;   /* Marina Ocean Slate Blue */
+  --primary-dark:     #21435b;   /* Deeper Slate Blue for pressed / active states */
+  --primary-light:    #B5D2E6;   /* Marina Soft Powder Sky Blue */
+  --primary-hover:    #3b6f93;   /* Marina Blue Hover */
+  --secondary:        #805232;   /* Marina Warm Terracotta / Chestnut */
+  --secondary-light:  #f6ebe3;   /* Marina Warm Linen Tint */
+  --secondary-hover:  #684126;   /* Marina Terracotta Hover */
+  --accent-green:     #15803d;
+  --accent-green-bg:  #dcfce7;
   
-  /* Crisp, Dark, High-Contrast Text - NEVER faint or washed out */
-  --text-primary:   #09101d;
-  --text-secondary: #1e293b;
-  --text-muted:     #334155;
+  /* Crisp, Dark, High-Contrast Text */
+  --text-primary:     #142533;   /* Deep slate charcoal */
+  --text-secondary:   #2a4254;   /* Refined slate */
+  --text-muted:       #4d6475;   /* Legible muted tone */
   
-  /* Less bright, calm background and surface tones */
-  --bg:             #eaedf1;
-  --surface:        #ffffff;
-  --surface-subtle: #f1f5f9;
-  --border:         #cbd5e1;
-  --border-focus:   #103b66;
+  /* Marina Warm Cream & Surface Canvas */
+  --bg:               #FFF1E7;   /* Marina Soft Warm Linen Cream */
+  --surface:          #ffffff;   /* Pure White for crisp elevated cards */
+  --surface-subtle:   #f8ede4;   /* Subtle Marina Cream for panels & inputs */
+  --border:           #e5d5c7;   /* Warm harmonious border tone */
+  --border-focus:     #326080;
   
-  --radius:         8px;
-  --radius-lg:      12px;
-  --shadow-sm:      0 1px 3px rgba(6,26,51,0.08), 0 1px 2px rgba(6,26,51,0.04);
-  --shadow-md:      0 4px 12px rgba(6,26,51,0.10), 0 2px 4px rgba(6,26,51,0.06);
-  --transition:     0.18s ease;
-  --font:           'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --radius:           8px;
+  --radius-lg:        12px;
+  --shadow-sm:        0 1px 3px rgba(50,96,128,0.08), 0 1px 2px rgba(50,96,128,0.04);
+  --shadow-md:        0 4px 14px rgba(50,96,128,0.10), 0 2px 4px rgba(50,96,128,0.05);
+  --transition:       0.18s ease;
+  --font:             'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -224,7 +225,8 @@ img { max-width: 100%; display: block; }
   border-color: var(--secondary);
 }
 .btn-secondary:hover {
-  background: #92400e;
+  background: var(--secondary-hover);
+  border-color: var(--secondary-hover);
   color: #ffffff;
   text-decoration: none;
 }
@@ -280,7 +282,7 @@ img { max-width: 100%; display: block; }
 }
 
 .hero h1 span {
-  color: #93c5fd;
+  color: #B5D2E6;
 }
 
 .hero p {
@@ -421,7 +423,7 @@ img { max-width: 100%; display: block; }
 .card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  border-color: #94a3b8;
+  border-color: var(--primary);
 }
 
 /* Card top color strip */
@@ -504,9 +506,9 @@ img { max-width: 100%; display: block; }
   color: var(--text-secondary);
   border: 1px solid var(--border);
 }
-.tag-blue   { background: var(--primary-light); color: var(--primary); border-color: #b9d3eb; }
+.tag-blue   { background: var(--primary-light); color: #16364e; border-color: #9ec3dc; }
 .tag-green  { background: var(--accent-green-bg); color: var(--accent-green); border-color: #bbf7d0; }
-.tag-orange { background: var(--secondary-light); color: var(--secondary); border-color: #fde68a; }
+.tag-orange { background: var(--secondary-light); color: var(--secondary); border-color: #e5cdbc; }
 
 .card-meta {
   display: flex;
@@ -638,7 +640,7 @@ img { max-width: 100%; display: block; }
 }
 .internship-card:hover {
   box-shadow: var(--shadow-sm);
-  border-color: #94a3b8;
+  border-color: var(--primary);
 }
 
 .internship-logo {
@@ -844,7 +846,7 @@ img { max-width: 100%; display: block; }
   font-weight: 800;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #93c5fd !important;
+  color: #B5D2E6 !important;
   margin-bottom: 6px;
   display: inline-block;
   background: rgba(255,255,255,0.12);
@@ -942,7 +944,7 @@ img { max-width: 100%; display: block; }
   font-weight: 800;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #93c5fd;
+  color: #B5D2E6;
   margin-bottom: 4px;
 }
 .apply-modal-banner h2 {
@@ -1132,13 +1134,13 @@ textarea.form-input { resize: vertical; }
 }
 
 .demo-hint {
-  background: var(--primary-light);
-  border: 1px solid #b9d3eb;
+  background: #eaf1f7;
+  border: 1px solid #B5D2E6;
   border-radius: var(--radius);
   padding: 10px 14px;
   margin-bottom: 16px;
   font-size: 0.82rem;
-  color: var(--primary-dark);
+  color: #1a394f;
   font-weight: 500;
 }
 .demo-hint strong { display: block; margin-bottom: 2px; font-weight: 800; }

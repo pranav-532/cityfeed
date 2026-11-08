@@ -1,623 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CityFeed - IIT Madras | Discover Events, Competitions &amp; Internships in Chennai</title>
-  <meta name="description" content="CityFeed is IIT Madras's hyper-local platform to discover competitions, hackathons, and internships across Chennai's college cluster." />
+  <meta name="description"
+    content="CityFeed is IIT Madras's hyper-local platform to discover competitions, hackathons, and internships across Chennai's college cluster." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/main.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
 </head>
+
 <body>
 
-<!-- ============================================================
+  <!-- ============================================================
      NAVBAR
      ============================================================ -->
-<nav class="navbar">
-  <a href="index.html" class="nav-logo">
-    <div class="logo-icon">⚡</div>
-    CityFeed
-  </a>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      CityFeed
+    </a>
 
-  <div class="nav-links">
-    <a href="index.html" class="active">Discover</a>
-    <a href="pages/competitions.html">Competitions</a>
-    <a href="pages/hackathons.html">Hackathons</a>
-    <a href="pages/internships.html">Internships</a>
-    <a href="pages/clubs.html">Clubs</a>
-  </div>
-
-  <div class="nav-search">
-    <span class="search-icon">🔍</span>
-    <input id="nav-search-input" type="text" placeholder="Search competitions, internships..." autocomplete="off" />
-  </div>
-
-  <div class="nav-actions">
-    <div class="nav-city-badge">📍 Chennai</div>
-
-    <!-- Logged out -->
-    <div class="show-logged-out" style="display:flex; gap:10px; align-items:center">
-      <button class="btn btn-outline btn-sm" onclick="openAuthModal('login')">Login</button>
-      <button class="btn btn-primary btn-sm" onclick="openAuthModal('signup')">Sign Up</button>
+    <div class="nav-links">
+      <a href="index.html" class="active">Discover</a>
+      <a href="pages/competitions.html">Competitions</a>
+      <a href="pages/hackathons.html">Hackathons</a>
+      <a href="pages/internships.html">Internships</a>
+      <a href="pages/clubs.html">Clubs</a>
     </div>
 
-    <!-- Logged in -->
-    <div class="show-logged-in" style="display:none; gap:10px; align-items:center">
-      <a href="pages/profile.html" class="avatar user-avatar-display">PK</a>
-    </div>
-  </div>
-</nav>
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">Chennai College Cluster &bull; IITM &middot; Anna &middot; SRM &middot; VIT</div>
-    <h1>Discover Competitions, Hackathons &amp; <span>Internships Near You</span></h1>
-    <p>A single feed for all campus events and opportunities across Chennai - no more missed deadlines, no more scattered WhatsApp groups.</p>
-
-    <div class="hero-search">
-      <input id="hero-search-input" type="text" placeholder="Search competitions, hackathons, internships..." autocomplete="off" />
-      <button class="btn btn-primary" style="background:var(--surface);color:var(--primary);border-color:var(--border)" onclick="setSearch(document.getElementById('hero-search-input').value)">Search</button>
+    <div class="nav-search">
+      <span class="search-icon">🔍</span>
+      <input id="nav-search-input" type="text" placeholder="Search competitions, internships..." autocomplete="off" />
     </div>
 
-    <div class="hero-stats">
-      <div class="hero-stat"><strong>45+</strong><span>Active Opportunities</span></div>
-      <div class="hero-stat"><strong>12,000+</strong><span>Students</span></div>
-      <div class="hero-stat"><strong>₹2.5L+</strong><span>Total Prizes</span></div>
-      <div class="hero-stat"><strong>4</strong><span>Partner Colleges</span></div>
-    </div>
-  </div>
-</section>
+    <div class="nav-actions">
+      <div class="nav-city-badge">📍 Chennai</div>
 
-<!-- ============================================================
-     FILTER BAR
-     ============================================================ -->
-<div class="filter-bar">
-  <button class="filter-chip active" data-filter="all" onclick="setFilter('all')">All</button>
-  <button class="filter-chip" data-filter="applied" onclick="setFilter('applied')">Applied <span id="filter-applied-pill" class="tag tag-green" style="font-size:0.7rem;padding:1px 6px;margin-left:4px;display:none">0</span></button>
-  <button class="filter-chip" data-filter="competition" onclick="setFilter('competition')">Competitions</button>
-  <button class="filter-chip" data-filter="hackathon" onclick="setFilter('hackathon')">Hackathons</button>
-  <button class="filter-chip" data-filter="internship" onclick="setFilter('internship')">Internships</button>
-</div>
-
-<!-- ============================================================
-     MAIN CONTENT
-     ============================================================ -->
-<main>
-  <div class="container">
-    <div class="page-layout">
-
-      <!-- ── Left Column ── -->
-      <div class="main-col">
-
-        <!-- Featured -->
-        <div class="featured-banner animate-in">
-          <div>
-            <div class="featured-badge">FEATURED</div>
-            <h2>National Case Study Challenge 2026</h2>
-            <p>India's premier case study challenge is back. Chennai regional finals at IIT Madras Research Park. ₹1,00,000 prize pool.</p>
-            <div class="featured-meta">
-              <div class="featured-meta-item"><strong>₹1,00,000</strong>Prize Pool</div>
-              <div class="featured-meta-item"><strong>Nov 25</strong>Last Date</div>
-              <div class="featured-meta-item"><strong>12,400+</strong>Registered</div>
-              <div class="featured-meta-item"><strong>Hybrid</strong>Mode</div>
-            </div>
-            <div class="flex gap-2">
-              <button class="btn" style="background:var(--surface);color:var(--primary);border-color:var(--border);font-weight:700" onclick="openApplyModal('c1')">Apply Now</button>
-              <button class="btn" style="background:rgba(246,248,250,0.15);color:#f6f8fa;border-color:rgba(246,248,250,0.3)" onclick="openDetailModal('c1')">View Details</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Applied Opportunities Section -->
-        <section id="applied-section" style="display:none;margin-bottom: 40px">
-          <div class="section-header">
-            <div style="display:flex;align-items:center;gap:10px">
-              <h2 class="section-title">Your Applied Opportunities</h2>
-              <span class="tag tag-green" id="applied-section-count" style="font-weight:700">0 applied</span>
-            </div>
-            <a href="pages/profile.html" class="btn btn-ghost btn-sm">Full Tracker in Profile →</a>
-          </div>
-          <div id="applied-content-container">
-            <!-- JS rendered via renderAppliedSection -->
-          </div>
-        </section>
-
-        <!-- Competitions Section -->
-        <section id="competitions-section">
-          <div class="section-header">
-            <h2 class="section-title">Competitions &amp; Hackathons <span class="tag" style="font-size:0.72rem;margin-left:4px">8 active</span></h2>
-            <a href="pages/competitions.html" class="btn btn-ghost btn-sm">View all</a>
-          </div>
-          <div class="cards-grid" id="competitions-grid">
-            <!-- JS rendered -->
-          </div>
-        </section>
-
-        <!-- Internships Section -->
-        <section id="internships-section" style="margin-top: 44px">
-          <div class="section-header">
-            <h2 class="section-title">Internship Opportunities <span class="tag" style="font-size:0.72rem;margin-left:4px">6 open</span></h2>
-            <a href="pages/internships.html" class="btn btn-ghost btn-sm">View all</a>
-          </div>
-          <div class="internship-list" id="internships-list">
-            <!-- JS rendered -->
-          </div>
-        </section>
-
+      <!-- Logged out -->
+      <div class="show-logged-out" style="display:flex; gap:10px; align-items:center">
+        <button class="btn btn-outline btn-sm" onclick="openAuthModal('login')">Login</button>
+        <button class="btn btn-primary btn-sm" onclick="openAuthModal('signup')">Sign Up</button>
       </div>
 
-      <!-- ── Sidebar ── -->
-      <aside class="sidebar">
-
-        <!-- Profile / Login Widget -->
-        <div class="show-logged-in sidebar-widget profile-widget" style="display:none">
-          <div class="avatar user-avatar-display">PK</div>
-          <h3 class="user-name-display">Pranav Kolekar</h3>
-          <p class="user-college-display">IIT Madras</p>
-          <div class="stats-row">
-            <div class="stat" style="cursor:pointer" onclick="setFilter('applied')" title="View applied opportunities"><strong class="applied-count">0</strong><small>Applied</small></div>
-            <div class="stat"><strong class="saved-count">0</strong><small>Saved</small></div>
-          </div>
-          <a href="pages/profile.html" class="btn btn-sm">View Profile</a>
-        </div>
-
-        <div class="show-logged-out sidebar-widget" style="text-align:center;padding:24px 18px">
-          <h3 style="font-weight:700;margin-bottom:6px;font-size:0.95rem">Join CityFeed</h3>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:16px">Log in to apply, track deadlines, and get personalised event recommendations.</p>
-          <button class="btn btn-primary w-full" style="justify-content:center;margin-bottom:8px" onclick="openAuthModal('login')">Login</button>
-          <button class="btn btn-outline w-full" style="justify-content:center" onclick="openAuthModal('signup')">Create Account</button>
-        </div>
-
-        <!-- Upcoming Deadlines -->
-        <div class="sidebar-widget">
-          <div class="sidebar-widget-title">Upcoming Deadlines</div>
-          <div class="deadline-list" id="deadline-list"></div>
-        </div>
-
-        <!-- Quick Stats -->
-        <div class="sidebar-widget">
-          <div class="sidebar-widget-title">Platform Stats</div>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div class="skill-bar">
-              <div class="skill-bar-label"><span>Competitions</span><span>8</span></div>
-              <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-bar-label"><span>Hackathons</span><span>3</span></div>
-              <div class="skill-bar-track"><div class="skill-bar-fill" style="width:40%"></div></div>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-bar-label"><span>Internships</span><span>6</span></div>
-              <div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- IITM Club Spotlight -->
-        <div class="sidebar-widget">
-          <div class="sidebar-widget-title">Club Spotlight</div>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div class="deadline-item">
-              <div class="deadline-dot" style="background:var(--primary)"></div>
-              <div class="info">
-                <strong>E-Cell IITM</strong>
-                <span>Nirmaan Business Plan: Open</span>
-              </div>
-            </div>
-            <div class="deadline-item">
-              <div class="deadline-dot" style="background:#1a73e8"></div>
-              <div class="info">
-                <strong>GDSC IITM</strong>
-                <span>Google Solution Challenge</span>
-              </div>
-            </div>
-            <div class="deadline-item">
-              <div class="deadline-dot" style="background:#059669"></div>
-              <div class="info">
-                <strong>Finance Club IITM</strong>
-                <span>Shaastra Finance League</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </aside>
+      <!-- Logged in -->
+      <div class="show-logged-in" style="display:none; gap:10px; align-items:center">
+        <a href="pages/profile.html" class="avatar user-avatar-display">PK</a>
+      </div>
     </div>
-  </div>
-</main>
+  </nav>
 
-<!-- ============================================================
+  <!-- ============================================================
+     HERO
+     ============================================================ -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Chennai College Cluster &bull; IITM &middot; Anna &middot; SRM &middot; VIT</div>
+      <h1>Discover Competitions, Hackathons &amp; <span>Internships Near You</span></h1>
+      <p>A single feed for all campus events and opportunities across Chennai - no more missed deadlines, no more
+        scattered WhatsApp groups.</p>
+
+      <div class="hero-search">
+        <input id="hero-search-input" type="text" placeholder="Search competitions, hackathons, internships..."
+          autocomplete="off" />
+        <button class="btn btn-primary"
+          style="background:var(--surface);color:var(--primary);border-color:var(--border)"
+          onclick="setSearch(document.getElementById('hero-search-input').value)">Search</button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>45+</strong><span>Active Opportunities</span></div>
+        <div class="hero-stat"><strong>12,000+</strong><span>Students</span></div>
+        <div class="hero-stat"><strong>₹2.5L+</strong><span>Total Prizes</span></div>
+        <div class="hero-stat"><strong>4</strong><span>Partner Colleges</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     FILTER BAR
+     ============================================================ -->
+  <div class="filter-bar">
+    <button class="filter-chip active" data-filter="all" onclick="setFilter('all')">All</button>
+    <button class="filter-chip" data-filter="applied" onclick="setFilter('applied')">Applied <span
+        id="filter-applied-pill" class="tag tag-green"
+        style="font-size:0.7rem;padding:1px 6px;margin-left:4px;display:none">0</span></button>
+    <button class="filter-chip" data-filter="competition" onclick="setFilter('competition')">Competitions</button>
+    <button class="filter-chip" data-filter="hackathon" onclick="setFilter('hackathon')">Hackathons</button>
+    <button class="filter-chip" data-filter="internship" onclick="setFilter('internship')">Internships</button>
+  </div>
+
+  <!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+  <main>
+    <div class="container">
+      <div class="page-layout">
+
+        <!-- ── Left Column ── -->
+        <div class="main-col">
+
+          <!-- Featured -->
+          <div class="featured-banner animate-in">
+            <div>
+              <div class="featured-badge">FEATURED</div>
+              <h2>National Case Study Challenge 2026</h2>
+              <p>India's premier case study challenge is back. Chennai regional finals at IIT Madras Research Park.
+                ₹1,00,000 prize pool.</p>
+              <div class="featured-meta">
+                <div class="featured-meta-item"><strong>₹1,00,000</strong>Prize Pool</div>
+                <div class="featured-meta-item"><strong>Nov 25</strong>Last Date</div>
+                <div class="featured-meta-item"><strong>12,400+</strong>Registered</div>
+                <div class="featured-meta-item"><strong>Hybrid</strong>Mode</div>
+              </div>
+              <div class="flex gap-2">
+                <button class="btn"
+                  style="background:var(--surface);color:var(--primary);border-color:var(--border);font-weight:700"
+                  onclick="openApplyModal('c1')">Apply Now</button>
+                <button class="btn"
+                  style="background:rgba(246,248,250,0.15);color:#f6f8fa;border-color:rgba(246,248,250,0.3)"
+                  onclick="openDetailModal('c1')">View Details</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Applied Opportunities Section -->
+          <section id="applied-section" style="display:none;margin-bottom: 40px">
+            <div class="section-header">
+              <div style="display:flex;align-items:center;gap:10px">
+                <h2 class="section-title">Your Applied Opportunities</h2>
+                <span class="tag tag-green" id="applied-section-count" style="font-weight:700">0 applied</span>
+              </div>
+              <a href="pages/profile.html" class="btn btn-ghost btn-sm">Full Tracker in Profile →</a>
+            </div>
+            <div id="applied-content-container">
+              <!-- JS rendered via renderAppliedSection -->
+            </div>
+          </section>
+
+          <!-- Competitions Section -->
+          <section id="competitions-section">
+            <div class="section-header">
+              <h2 class="section-title">Competitions &amp; Hackathons <span class="tag"
+                  style="font-size:0.72rem;margin-left:4px">8 active</span></h2>
+              <a href="pages/competitions.html" class="btn btn-ghost btn-sm">View all</a>
+            </div>
+            <div class="cards-grid" id="competitions-grid">
+              <!-- JS rendered -->
+            </div>
+          </section>
+
+          <!-- Internships Section -->
+          <section id="internships-section" style="margin-top: 44px">
+            <div class="section-header">
+              <h2 class="section-title">Internship Opportunities <span class="tag"
+                  style="font-size:0.72rem;margin-left:4px">6 open</span></h2>
+              <a href="pages/internships.html" class="btn btn-ghost btn-sm">View all</a>
+            </div>
+            <div class="internship-list" id="internships-list">
+              <!-- JS rendered -->
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ── Sidebar ── -->
+        <aside class="sidebar">
+
+          <!-- Profile / Login Widget -->
+          <div class="show-logged-in sidebar-widget profile-widget" style="display:none">
+            <div class="avatar user-avatar-display">PK</div>
+            <h3 class="user-name-display">Pranav Kolekar</h3>
+            <p class="user-college-display">IIT Madras</p>
+            <div class="stats-row">
+              <div class="stat" style="cursor:pointer" onclick="setFilter('applied')"
+                title="View applied opportunities"><strong class="applied-count">0</strong><small>Applied</small></div>
+              <div class="stat"><strong class="saved-count">0</strong><small>Saved</small></div>
+            </div>
+            <a href="pages/profile.html" class="btn btn-sm">View Profile</a>
+          </div>
+
+          <div class="show-logged-out sidebar-widget" style="text-align:center;padding:24px 18px">
+            <h3 style="font-weight:700;margin-bottom:6px;font-size:0.95rem">Join CityFeed</h3>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:16px">Log in to apply, track deadlines, and
+              get personalised event recommendations.</p>
+            <button class="btn btn-primary w-full" style="justify-content:center;margin-bottom:8px"
+              onclick="openAuthModal('login')">Login</button>
+            <button class="btn btn-outline w-full" style="justify-content:center"
+              onclick="openAuthModal('signup')">Create Account</button>
+          </div>
+
+          <!-- Upcoming Deadlines -->
+          <div class="sidebar-widget">
+            <div class="sidebar-widget-title">Upcoming Deadlines</div>
+            <div class="deadline-list" id="deadline-list"></div>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="sidebar-widget">
+            <div class="sidebar-widget-title">Platform Stats</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div class="skill-bar">
+                <div class="skill-bar-label"><span>Competitions</span><span>8</span></div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" style="width:80%"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-label"><span>Hackathons</span><span>3</span></div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" style="width:40%"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-label"><span>Internships</span><span>6</span></div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" style="width:60%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- IITM Club Spotlight -->
+          <div class="sidebar-widget">
+            <div class="sidebar-widget-title">Club Spotlight</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="deadline-item">
+                <div class="deadline-dot" style="background:var(--primary)"></div>
+                <div class="info">
+                  <strong>E-Cell IITM</strong>
+                  <span>Nirmaan Business Plan: Open</span>
+                </div>
+              </div>
+              <div class="deadline-item">
+                <div class="deadline-dot" style="background:#1a73e8"></div>
+                <div class="info">
+                  <strong>GDSC IITM</strong>
+                  <span>Google Solution Challenge</span>
+                </div>
+              </div>
+              <div class="deadline-item">
+                <div class="deadline-dot" style="background:#059669"></div>
+                <div class="info">
+                  <strong>Finance Club IITM</strong>
+                  <span>Shaastra Finance League</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================================================
      FOOTER
      ============================================================ -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="index.html" class="nav-logo">
-        <div class="logo-icon">⚡</div>
-        CityFeed
-      </a>
-      <p>Hyper-local campus event discovery &amp; micro-sponsorship platform. Built by IIT Madras students for Chennai's college cluster.</p>
-      <div style="margin-top:16px;font-size:0.78rem;opacity:0.5">MS2002: Innovation &amp; Entrepreneurship<br/>Batch A, Group 48 · 2026</div>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-icon">⚡</div>
+          CityFeed
+        </a>
+        <p>Hyper-local campus event discovery &amp; micro-sponsorship platform. Built by IIT Madras students for
+          Chennai's college cluster.</p>
+        <div style="margin-top:16px;font-size:0.78rem;opacity:0.5">MS2002: Innovation &amp; Entrepreneurship<br />Batch
+          A, Group 48 · 2026</div>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="pages/competitions.html">Competitions</a></li>
+          <li><a href="pages/hackathons.html">Hackathons</a></li>
+          <li><a href="pages/internships.html">Internships</a></li>
+          <li><a href="pages/clubs.html">Clubs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Colleges</h4>
+        <ul>
+          <li><a href="#">IIT Madras</a></li>
+          <li><a href="#">Anna University</a></li>
+          <li><a href="#">SRM Chennai</a></li>
+          <li><a href="#">VIT Chennai</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About CityFeed</a></li>
+          <li><a href="#">For Organizers</a></li>
+          <li><a href="#">For Sponsors</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Discover</h4>
-      <ul>
-        <li><a href="pages/competitions.html">Competitions</a></li>
-        <li><a href="pages/hackathons.html">Hackathons</a></li>
-        <li><a href="pages/internships.html">Internships</a></li>
-        <li><a href="pages/clubs.html">Clubs</a></li>
-      </ul>
+    <div class="footer-bottom">
+      <div>© 2026 CityFeed · IIT Madras · MS2002 Course Project</div>
+      <div>Made with ❤️ by Group 48, Batch A</div>
     </div>
-    <div class="footer-col">
-      <h4>Colleges</h4>
-      <ul>
-        <li><a href="#">IIT Madras</a></li>
-        <li><a href="#">Anna University</a></li>
-        <li><a href="#">SRM Chennai</a></li>
-        <li><a href="#">VIT Chennai</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="#">About CityFeed</a></li>
-        <li><a href="#">For Organizers</a></li>
-        <li><a href="#">For Sponsors</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div>© 2026 CityFeed · IIT Madras · MS2002 Course Project</div>
-    <div>Made with ❤️ by Group 48, Batch A</div>
-  </div>
-</footer>
+  </footer>
 
-<!-- ============================================================
+  <!-- ============================================================
      MODALS
      ============================================================ -->
 
-<!-- Auth Modal -->
-<div class="modal-overlay" id="auth-modal">
-  <div class="modal">
-    <div class="modal-header">
-      <div>
-        <div style="font-size:1.6rem;margin-bottom:4px">⚡</div>
-        <h2 style="font-size:1.1rem;font-weight:800">Welcome to CityFeed</h2>
-        <p style="font-size:0.82rem;color:var(--text-muted)">Your campus event feed for Chennai cluster</p>
-      </div>
-      <button class="modal-close" onclick="closeAuthModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="auth-tabs">
-        <div class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Login</div>
-        <div class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</div>
-      </div>
-
-      <!-- Login Form -->
-      <div id="login-form">
-        <div class="demo-hint">
-          <strong>🎯 Demo Credentials</strong>
-          Email: demo@iitm.ac.in &nbsp;|&nbsp; Password: cityfeed2026
+  <!-- Auth Modal -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div style="font-size:1.6rem;margin-bottom:4px">⚡</div>
+          <h2 style="font-size:1.1rem;font-weight:800">Welcome to CityFeed</h2>
+          <p style="font-size:0.82rem;color:var(--text-muted)">Your campus event feed for Chennai cluster</p>
         </div>
-        <form id="login-form-el">
-          <div id="login-error" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:10px 14px;border-radius:8px;font-size:0.82rem;margin-bottom:16px"></div>
-          <div class="form-group">
-            <label class="form-label">College Email</label>
-            <input id="login-email" class="form-input" type="email" placeholder="demo@iitm.ac.in" value="demo@iitm.ac.in" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Password</label>
-            <input id="login-pwd" class="form-input" type="password" placeholder="••••••••••" value="cityfeed2026" required />
-          </div>
-          <button type="submit" class="btn btn-primary w-full" style="justify-content:center;margin-top:4px">Login →</button>
-        </form>
+        <button class="modal-close" onclick="closeAuthModal()">✕</button>
       </div>
+      <div class="modal-body">
+        <div class="auth-tabs">
+          <div class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Login</div>
+          <div class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</div>
+        </div>
 
-      <!-- Signup Form -->
-      <div id="signup-form" class="hidden">
-        <form id="signup-form-el">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Full Name</label>
-              <input id="signup-name" class="form-input" type="text" placeholder="Pranav Kolekar" required />
+        <!-- Login Form -->
+        <div id="login-form">
+          <div class="demo-hint">
+            <strong>🎯 Demo Credentials</strong>
+            Email: demo@iitm.ac.in &nbsp;|&nbsp; Password: cityfeed2026
+          </div>
+          <form id="login-form-el">
+            <div id="login-error"
+              style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:10px 14px;border-radius:8px;font-size:0.82rem;margin-bottom:16px">
             </div>
             <div class="form-group">
-              <label class="form-label">Roll Number</label>
-              <input class="form-input" type="text" placeholder="CH25B071" required />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">College Email</label>
-            <input class="form-input" type="email" placeholder="ch25b071@smail.iitm.ac.in" required />
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">College</label>
-              <select class="form-input" required>
-                <option value="">Select college</option>
-                <option>IIT Madras</option>
-                <option>Anna University</option>
-                <option>SRM Chennai</option>
-                <option>VIT Chennai</option>
-                <option>Other</option>
-              </select>
+              <label class="form-label">College Email</label>
+              <input id="login-email" class="form-input" type="email" placeholder="demo@iitm.ac.in"
+                value="demo@iitm.ac.in" required />
             </div>
             <div class="form-group">
-              <label class="form-label">Department</label>
-              <input class="form-input" type="text" placeholder="Chemical Engg" required />
+              <label class="form-label">Password</label>
+              <input id="login-pwd" class="form-input" type="password" placeholder="••••••••••" value="cityfeed2026"
+                required />
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Password</label>
-            <input class="form-input" type="password" placeholder="Create password" required />
-          </div>
-          <button type="submit" class="btn btn-primary w-full" style="justify-content:center">Create Account →</button>
-        </form>
+            <button type="submit" class="btn btn-primary w-full" style="justify-content:center;margin-top:4px">Login
+              →</button>
+          </form>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signup-form" class="hidden">
+          <form id="signup-form-el">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input id="signup-name" class="form-input" type="text" placeholder="Pranav Kolekar" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Roll Number</label>
+                <input class="form-input" type="text" placeholder="CH25B071" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">College Email</label>
+              <input class="form-input" type="email" placeholder="ch25b071@smail.iitm.ac.in" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">College</label>
+                <select class="form-input" required>
+                  <option value="">Select college</option>
+                  <option>IIT Madras</option>
+                  <option>Anna University</option>
+                  <option>SRM Chennai</option>
+                  <option>VIT Chennai</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Department</label>
+                <input class="form-input" type="text" placeholder="Chemical Engg" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input class="form-input" type="password" placeholder="Create password" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-full" style="justify-content:center">Create Account
+              →</button>
+          </form>
+        </div>
+
       </div>
-
     </div>
   </div>
-</div>
 
-<!-- Apply Modal -->
-<div class="modal-overlay" id="apply-modal">
-  <div class="modal" style="max-width:640px;overflow:hidden;padding:0">
-    <div class="apply-modal-banner">
-      <button class="modal-header-close" onclick="closeApplyModal()">✕</button>
-      <div class="sub-badge">Official Application Form</div>
-      <h2 id="apply-modal-title">Opportunity Title</h2>
-      <p id="apply-modal-org">Organization Name</p>
-    </div>
-    <div class="apply-modal-body">
-      <input type="hidden" id="apply-item-id" />
-      
-      <div class="step-indicator">
-        <div class="step active"><div class="step-num">1</div> Personal</div>
-        <div class="step-line done"></div>
-        <div class="step active"><div class="step-num">2</div> Academics</div>
-        <div class="step-line done"></div>
-        <div class="step active"><div class="step-num">3</div> Team &amp; Mode</div>
-        <div class="step-line done"></div>
-        <div class="step active"><div class="step-num">4</div> Submit</div>
+  <!-- Apply Modal -->
+  <div class="modal-overlay" id="apply-modal">
+    <div class="modal" style="max-width:640px;overflow:hidden;padding:0">
+      <div class="apply-modal-banner">
+        <button class="modal-header-close" onclick="closeApplyModal()">✕</button>
+        <div class="sub-badge">Official Application Form</div>
+        <h2 id="apply-modal-title">Opportunity Title</h2>
+        <p id="apply-modal-org">Organization Name</p>
       </div>
+      <div class="apply-modal-body">
+        <input type="hidden" id="apply-item-id" />
 
-      <form id="apply-form-el" onsubmit="submitApplication(event)">
-        <!-- 1. Personal & Contact Details -->
-        <div class="form-section-title">1. Personal &amp; Contact Details</div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Full Name <span class="req">*</span></label>
-            <input id="app-fullname" class="form-input" type="text" placeholder="e.g. Pranav Kolekar" required />
+        <div class="step-indicator">
+          <div class="step active">
+            <div class="step-num">1</div> Personal
           </div>
-          <div class="form-group">
-            <label class="form-label">College Email Address <span class="req">*</span></label>
-            <input id="app-email" class="form-input" type="email" placeholder="e.g. ch25b071@smail.iitm.ac.in" required />
+          <div class="step-line done"></div>
+          <div class="step active">
+            <div class="step-num">2</div> Academics
           </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">WhatsApp / Contact Number <span class="req">*</span></label>
-            <input id="app-phone" class="form-input" type="tel" placeholder="+91 98765 43210" value="+91 98765 43210" required />
+          <div class="step-line done"></div>
+          <div class="step active">
+            <div class="step-num">3</div> Team &amp; Mode
           </div>
-          <div class="form-group">
-            <label class="form-label">Gender <span class="opt">(Optional)</span></label>
-            <select id="app-gender" class="form-input">
-              <option value="Male" selected>Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-              <option value="Prefer not to say">Prefer not to say</option>
-            </select>
+          <div class="step-line done"></div>
+          <div class="step active">
+            <div class="step-num">4</div> Submit
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">Current City / Campus Location <span class="opt">(Optional)</span></label>
-          <input id="app-location" class="form-input" type="text" placeholder="e.g. Chennai (IIT Madras Campus)" value="Chennai (IIT Madras Campus)" />
-        </div>
-
-        <!-- 2. Academic & Institution Details -->
-        <div class="form-section-title">2. Academic &amp; Institution Details</div>
-        <div class="form-group">
-          <label class="form-label">College / University Name <span class="req">*</span></label>
-          <select id="app-college" class="form-input" required>
-            <option value="IIT Madras" selected>IIT Madras (Indian Institute of Technology Madras)</option>
-            <option value="Anna University">Anna University (CEG / ACT Tech)</option>
-            <option value="SRM Chennai">SRM Institute of Science and Technology, Kattankulathur</option>
-            <option value="VIT Chennai">Vellore Institute of Technology, Chennai Campus</option>
-            <option value="SSN College">SSN College of Engineering, Chennai</option>
-            <option value="NIT Trichy">National Institute of Technology, Tiruchirappalli</option>
-            <option value="Other">Other College / University</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Degree Program <span class="req">*</span></label>
-            <select id="app-degree" class="form-input" required>
-              <option value="B.Tech" selected>B.Tech (Bachelor of Technology)</option>
-              <option value="Dual Degree">Dual Degree (B.Tech + M.Tech)</option>
-              <option value="B.E.">B.E. (Bachelor of Engineering)</option>
-              <option value="M.Tech">M.Tech / M.E.</option>
-              <option value="MBA">MBA / Management</option>
-              <option value="M.Sc">M.Sc / MS (by Research)</option>
-              <option value="B.Sc">B.Sc / BCA</option>
-              <option value="Ph.D">Ph.D. Scholar</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Department / Stream <span class="req">*</span></label>
-            <select id="app-dept" class="form-input" required>
-              <option value="Chemical Engineering" selected>Chemical Engineering</option>
-              <option value="Computer Science & Engineering">Computer Science &amp; Engineering</option>
-              <option value="Electrical Engineering">Electrical &amp; Electronics Engineering</option>
-              <option value="Mechanical Engineering">Mechanical Engineering</option>
-              <option value="Aerospace Engineering">Aerospace Engineering</option>
-              <option value="Civil Engineering">Civil Engineering</option>
-              <option value="Engineering Design">Engineering Design / Data Science</option>
-              <option value="Management Studies">Management Studies</option>
-              <option value="Physics / Chemistry / Math">Sciences / Humanities</option>
-              <option value="Other">Other Department</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Year of Study / Batch <span class="req">*</span></label>
-            <select id="app-year" class="form-input" required>
-              <option value="1st Year" selected>1st Year (Batch of 2029)</option>
-              <option value="2nd Year">2nd Year (Batch of 2028)</option>
-              <option value="3rd Year">3rd Year (Batch of 2027)</option>
-              <option value="4th Year">4th Year (Batch of 2026)</option>
-              <option value="5th Year">5th Year (Dual Degree)</option>
-              <option value="Postgraduate">Postgraduate / Research</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Roll Number / Student ID <span class="req">*</span></label>
-            <input id="app-rollno" class="form-input" type="text" placeholder="e.g. CH25B071" value="CH25B071" required />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Current CGPA / Percentage <span class="opt">(Optional)</span></label>
-          <input id="app-cgpa" class="form-input" type="text" placeholder="e.g. 8.65 / 10" value="8.65 / 10" />
-        </div>
-
-        <!-- 3. Participation Mode -->
-        <div class="form-section-title">3. Participation Mode &amp; Team Details</div>
-        <div class="form-group">
-          <label class="form-label">Register As <span class="req">*</span></label>
-          <div class="radio-group">
-            <label class="radio-label">
-              <input type="radio" name="participationType" value="Individual" checked onchange="toggleTeamFields(false)" />
-              Individual Candidate
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="participationType" value="Team Leader" onchange="toggleTeamFields(true)" />
-              Team Leader / Team Entry
-            </label>
-          </div>
-        </div>
-
-        <div id="team-fields-box" style="display:none;background:var(--surface-subtle);padding:14px;border-radius:var(--radius);margin-bottom:14px;border:1px solid var(--border)">
+        <form id="apply-form-el" onsubmit="submitApplication(event)">
+          <!-- 1. Personal & Contact Details -->
+          <div class="form-section-title">1. Personal &amp; Contact Details</div>
           <div class="form-row">
-            <div class="form-group" style="margin-bottom:10px">
-              <label class="form-label">Team Name <span class="req">*</span></label>
-              <input id="app-team-name" class="form-input" type="text" placeholder="e.g. ByteCraft IITM" />
+            <div class="form-group">
+              <label class="form-label">Full Name <span class="req">*</span></label>
+              <input id="app-fullname" class="form-input" type="text" placeholder="e.g. Pranav Kolekar" required />
             </div>
-            <div class="form-group" style="margin-bottom:10px">
-              <label class="form-label">Total Team Size</label>
-              <select id="app-team-size" class="form-input">
-                <option value="2">2 Members</option>
-                <option value="3" selected>3 Members</option>
-                <option value="4">4 Members</option>
-                <option value="5">5 Members</option>
-                <option value="6">6 Members</option>
+            <div class="form-group">
+              <label class="form-label">College Email Address <span class="req">*</span></label>
+              <input id="app-email" class="form-input" type="email" placeholder="e.g. ch25b071@smail.iitm.ac.in"
+                required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">WhatsApp / Contact Number <span class="req">*</span></label>
+              <input id="app-phone" class="form-input" type="tel" placeholder="+91 98765 43210" value="+91 98765 43210"
+                required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Gender <span class="opt">(Optional)</span></label>
+              <select id="app-gender" class="form-input">
+                <option value="Male" selected>Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
               </select>
             </div>
           </div>
-          <div class="form-group" style="margin-bottom:0">
-            <label class="form-label">Teammate Names, Emails &amp; Roll Numbers</label>
-            <textarea id="app-team-members" class="form-input" rows="2" placeholder="e.g. Anurag Kumar (NA25B013), Yash Tulshyan (CS25B095)"></textarea>
-          </div>
-        </div>
 
-        <!-- 4. Experience & Portfolio -->
-        <div class="form-section-title">4. Experience &amp; Profiles</div>
-        <div class="form-row">
           <div class="form-group">
-            <label class="form-label">LinkedIn Profile URL <span class="opt">(Optional)</span></label>
-            <input id="app-linkedin" class="form-input" type="url" placeholder="https://linkedin.com/in/username" />
+            <label class="form-label">Current City / Campus Location <span class="opt">(Optional)</span></label>
+            <input id="app-location" class="form-input" type="text" placeholder="e.g. Chennai (IIT Madras Campus)"
+              value="Chennai (IIT Madras Campus)" />
           </div>
-          <div class="form-group">
-            <label class="form-label">GitHub / Portfolio URL <span class="opt">(Optional)</span></label>
-            <input id="app-portfolio" class="form-input" type="url" placeholder="https://github.com/username" />
-          </div>
-        </div>
 
-        <div class="form-row">
+          <!-- 2. Academic & Institution Details -->
+          <div class="form-section-title">2. Academic &amp; Institution Details</div>
           <div class="form-group">
-            <label class="form-label">Key Technical / Domain Skills <span class="opt">(Optional)</span></label>
-            <input id="app-skills" class="form-input" type="text" placeholder="e.g. Python, AI/ML, React, CAD, Financial Modeling" value="Python, Data Science, Problem Solving" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Prior Event Experience <span class="opt">(Optional)</span></label>
-            <select id="app-experience" class="form-input">
-              <option value="First-time participant">First-time participant</option>
-              <option value="Participated in 1-2 events" selected>Participated in 1-2 events</option>
-              <option value="Winner / Finalist previously">Winner / Finalist previously</option>
+            <label class="form-label">College / University Name <span class="req">*</span></label>
+            <select id="app-college" class="form-input" required>
+              <option value="IIT Madras" selected>IIT Madras (Indian Institute of Technology Madras)</option>
+              <option value="Anna University">Anna University (CEG / ACT Tech)</option>
+              <option value="SRM Chennai">SRM Institute of Science and Technology, Kattankulathur</option>
+              <option value="VIT Chennai">Vellore Institute of Technology, Chennai Campus</option>
+              <option value="SSN College">SSN College of Engineering, Chennai</option>
+              <option value="NIT Trichy">National Institute of Technology, Tiruchirappalli</option>
+              <option value="Other">Other College / University</option>
             </select>
           </div>
-        </div>
 
-        <!-- 5. Motivation & Resume -->
-        <div class="form-section-title">5. Motivation, Resume &amp; Submission</div>
-        <div class="form-group">
-          <label class="form-label">Why do you want to participate / Problem-solving approach? <span class="opt">(Optional)</span></label>
-          <textarea id="app-motivation" class="form-input" rows="2" placeholder="Briefly describe your interest, background, or solution approach..."></textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Resume / CV Link <span class="opt">(Google Drive, Notion, Dropbox, LinkedIn)</span></label>
-          <input id="app-resume-link" class="form-input" type="url" placeholder="https://drive.google.com/file/d/..." value="https://drive.google.com/file/d/demo-resume-pranav/view" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Or Upload Resume File <span class="opt">(PDF / DOCX, max 5MB)</span></label>
-          <div id="drop-zone" onclick="document.getElementById('app-resume-file').click()" style="border:2px dashed var(--border);border-radius:var(--radius);padding:18px;text-align:center;cursor:pointer;background:var(--surface-subtle);transition:var(--transition)">
-            <div style="font-size:1.4rem;margin-bottom:4px">📎</div>
-            <div id="upload-label" style="font-size:0.85rem;font-weight:700;color:var(--text-primary)">Click to select or drag &amp; drop resume</div>
-            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px">PDF, DOC, DOCX up to 5MB</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Degree Program <span class="req">*</span></label>
+              <select id="app-degree" class="form-input" required>
+                <option value="B.Tech" selected>B.Tech (Bachelor of Technology)</option>
+                <option value="Dual Degree">Dual Degree (B.Tech + M.Tech)</option>
+                <option value="B.E.">B.E. (Bachelor of Engineering)</option>
+                <option value="M.Tech">M.Tech / M.E.</option>
+                <option value="MBA">MBA / Management</option>
+                <option value="M.Sc">M.Sc / MS (by Research)</option>
+                <option value="B.Sc">B.Sc / BCA</option>
+                <option value="Ph.D">Ph.D. Scholar</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Department / Stream <span class="req">*</span></label>
+              <select id="app-dept" class="form-input" required>
+                <option value="Chemical Engineering" selected>Chemical Engineering</option>
+                <option value="Computer Science & Engineering">Computer Science &amp; Engineering</option>
+                <option value="Electrical Engineering">Electrical &amp; Electronics Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Aerospace Engineering">Aerospace Engineering</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Engineering Design">Engineering Design / Data Science</option>
+                <option value="Management Studies">Management Studies</option>
+                <option value="Physics / Chemistry / Math">Sciences / Humanities</option>
+                <option value="Other">Other Department</option>
+              </select>
+            </div>
           </div>
-          <input type="file" id="app-resume-file" style="display:none" onchange="const f = this.files[0]; if(f) document.getElementById('upload-label').innerHTML = '✅ Selected: <strong>' + f.name + '</strong>';" />
-        </div>
 
-        <div class="form-group">
-          <label class="form-label">How did you hear about this event?</label>
-          <select id="app-referral" class="form-input">
-            <option value="CityFeed Campus Feed" selected>CityFeed Campus Feed</option>
-            <option value="Club WhatsApp Group">Club WhatsApp Group</option>
-            <option value="Hostel / Department Notice Board">Hostel / Department Notice Board</option>
-            <option value="Senior / Batchmate Recommendation">Senior / Batchmate Recommendation</option>
-          </select>
-        </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Year of Study / Batch <span class="req">*</span></label>
+              <select id="app-year" class="form-input" required>
+                <option value="1st Year" selected>1st Year (Batch of 2029)</option>
+                <option value="2nd Year">2nd Year (Batch of 2028)</option>
+                <option value="3rd Year">3rd Year (Batch of 2027)</option>
+                <option value="4th Year">4th Year (Batch of 2026)</option>
+                <option value="5th Year">5th Year (Dual Degree)</option>
+                <option value="Postgraduate">Postgraduate / Research</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Roll Number / Student ID <span class="req">*</span></label>
+              <input id="app-rollno" class="form-input" type="text" placeholder="e.g. CH25B071" value="CH25B071"
+                required />
+            </div>
+          </div>
 
-        <div class="form-group">
-          <label class="checkbox-label">
-            <input type="checkbox" required checked />
-            <span style="font-size:0.82rem;line-height:1.45;color:var(--text-primary)">I confirm that all personal and academic details provided are accurate and I agree to abide by the event rules, plagiarism regulations, and code of conduct.</span>
-          </label>
-        </div>
+          <div class="form-group">
+            <label class="form-label">Current CGPA / Percentage <span class="opt">(Optional)</span></label>
+            <input id="app-cgpa" class="form-input" type="text" placeholder="e.g. 8.65 / 10" value="8.65 / 10" />
+          </div>
 
-        <div style="display:flex;gap:12px;margin-top:20px">
-          <button type="button" class="btn btn-ghost" style="flex:1;justify-content:center;padding:12px;font-size:0.9rem" onclick="closeApplyModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary" style="flex:2;justify-content:center;padding:12px;font-size:0.92rem">🚀 Submit Application</button>
-        </div>
-      </form>
+          <!-- 3. Participation Mode -->
+          <div class="form-section-title">3. Participation Mode &amp; Team Details</div>
+          <div class="form-group">
+            <label class="form-label">Register As <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="participationType" value="Individual" checked
+                  onchange="toggleTeamFields(false)" />
+                Individual Candidate
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="participationType" value="Team Leader" onchange="toggleTeamFields(true)" />
+                Team Leader / Team Entry
+              </label>
+            </div>
+          </div>
+
+          <div id="team-fields-box"
+            style="display:none;background:var(--surface-subtle);padding:14px;border-radius:var(--radius);margin-bottom:14px;border:1px solid var(--border)">
+            <div class="form-row">
+              <div class="form-group" style="margin-bottom:10px">
+                <label class="form-label">Team Name <span class="req">*</span></label>
+                <input id="app-team-name" class="form-input" type="text" placeholder="e.g. ByteCraft IITM" />
+              </div>
+              <div class="form-group" style="margin-bottom:10px">
+                <label class="form-label">Total Team Size</label>
+                <select id="app-team-size" class="form-input">
+                  <option value="2">2 Members</option>
+                  <option value="3" selected>3 Members</option>
+                  <option value="4">4 Members</option>
+                  <option value="5">5 Members</option>
+                  <option value="6">6 Members</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">Teammate Names, Emails &amp; Roll Numbers</label>
+              <textarea id="app-team-members" class="form-input" rows="2"
+                placeholder="e.g. Anurag Kumar (NA25B013), Yash Tulshyan (CS25B095)"></textarea>
+            </div>
+          </div>
+
+          <!-- 4. Experience & Portfolio -->
+          <div class="form-section-title">4. Experience &amp; Profiles</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">LinkedIn Profile URL <span class="opt">(Optional)</span></label>
+              <input id="app-linkedin" class="form-input" type="url" placeholder="https://linkedin.com/in/username" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">GitHub / Portfolio URL <span class="opt">(Optional)</span></label>
+              <input id="app-portfolio" class="form-input" type="url" placeholder="https://github.com/username" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Key Technical / Domain Skills <span class="opt">(Optional)</span></label>
+              <input id="app-skills" class="form-input" type="text"
+                placeholder="e.g. Python, AI/ML, React, CAD, Financial Modeling"
+                value="Python, Data Science, Problem Solving" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Prior Event Experience <span class="opt">(Optional)</span></label>
+              <select id="app-experience" class="form-input">
+                <option value="First-time participant">First-time participant</option>
+                <option value="Participated in 1-2 events" selected>Participated in 1-2 events</option>
+                <option value="Winner / Finalist previously">Winner / Finalist previously</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 5. Motivation & Resume -->
+          <div class="form-section-title">5. Motivation, Resume &amp; Submission</div>
+          <div class="form-group">
+            <label class="form-label">Why do you want to participate / Problem-solving approach? <span
+                class="opt">(Optional)</span></label>
+            <textarea id="app-motivation" class="form-input" rows="2"
+              placeholder="Briefly describe your interest, background, or solution approach..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Resume / CV Link <span class="opt">(Google Drive, Notion, Dropbox,
+                LinkedIn)</span></label>
+            <input id="app-resume-link" class="form-input" type="url" placeholder="https://drive.google.com/file/d/..."
+              value="https://drive.google.com/file/d/demo-resume-pranav/view" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Or Upload Resume File <span class="opt">(PDF / DOCX, max 5MB)</span></label>
+            <div id="drop-zone" onclick="document.getElementById('app-resume-file').click()"
+              style="border:2px dashed var(--border);border-radius:var(--radius);padding:18px;text-align:center;cursor:pointer;background:var(--surface-subtle);transition:var(--transition)">
+              <div style="font-size:1.4rem;margin-bottom:4px">📎</div>
+              <div id="upload-label" style="font-size:0.85rem;font-weight:700;color:var(--text-primary)">Click to select
+                or drag &amp; drop resume</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px">PDF, DOC, DOCX up to 5MB</div>
+            </div>
+            <input type="file" id="app-resume-file" style="display:none"
+              onchange="const f = this.files[0]; if(f) document.getElementById('upload-label').innerHTML = '✅ Selected: <strong>' + f.name + '</strong>';" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">How did you hear about this event?</label>
+            <select id="app-referral" class="form-input">
+              <option value="CityFeed Campus Feed" selected>CityFeed Campus Feed</option>
+              <option value="Club WhatsApp Group">Club WhatsApp Group</option>
+              <option value="Hostel / Department Notice Board">Hostel / Department Notice Board</option>
+              <option value="Senior / Batchmate Recommendation">Senior / Batchmate Recommendation</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" required checked />
+              <span style="font-size:0.82rem;line-height:1.45;color:var(--text-primary)">I confirm that all personal and
+                academic details provided are accurate and I agree to abide by the event rules, plagiarism regulations,
+                and code of conduct.</span>
+            </label>
+          </div>
+
+          <div style="display:flex;gap:12px;margin-top:20px">
+            <button type="button" class="btn btn-ghost"
+              style="flex:1;justify-content:center;padding:12px;font-size:0.9rem"
+              onclick="closeApplyModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary"
+              style="flex:2;justify-content:center;padding:12px;font-size:0.92rem">🚀 Submit Application</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Detail Modal -->
-<div class="modal-overlay" id="detail-modal">
-  <div class="modal" style="max-width:620px;overflow:hidden;padding:0">
-    <div id="detail-modal-content"></div>
+  <!-- Detail Modal -->
+  <div class="modal-overlay" id="detail-modal">
+    <div class="modal" style="max-width:620px;overflow:hidden;padding:0">
+      <div id="detail-modal-content"></div>
+    </div>
   </div>
-</div>
 
-<!-- Toast Container -->
-<div id="toast-container"></div>
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
 
-<script src="assets/js/app.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
-</html>
 
+</html>
