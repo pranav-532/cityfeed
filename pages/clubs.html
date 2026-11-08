@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clubs — CityFeed | IIT Madras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div>CityFeed</a>
+  <div class="nav-links">
+    <a href="../index.html">Discover</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="hackathons.html">Hackathons</a>
+    <a href="internships.html">Internships</a>
+    <a href="clubs.html" class="active">Clubs</a>
+  </div>
+  <div class="nav-actions">
+    <div class="nav-city-badge">📍 Chennai</div>
+    <div class="show-logged-out" style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-outline btn-sm" onclick="openAuthModal('login')">Login</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuthModal('signup')">Sign Up</button>
+    </div>
+    <div class="show-logged-in" style="display:none;gap:10px;align-items:center">
+      <a href="profile.html" class="avatar user-avatar-display">PK</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" style="padding:48px 24px 36px;background:linear-gradient(135deg,#0d2a3e 0%,#1a3a6e 50%,#0d2a1a 100%)">
+  <div class="hero-content">
+    <div class="hero-badge">🎓 Clubs & Organizations</div>
+    <h1>Chennai's <span>Top Student Clubs</span></h1>
+    <p>Discover student clubs across IITM, Anna University, SRM and VIT Chennai. Follow clubs to get event updates.</p>
+  </div>
+</section>
+
+<main class="container section">
+  <div class="section-header">
+    <h2 class="section-title"><span class="icon">🎓</span> Active Clubs</h2>
+  </div>
+  <div class="cards-grid">
+
+    <!-- IITM Clubs -->
+    <div class="card" style="cursor:default">
+      <div class="card-banner" style="background:linear-gradient(135deg,#1a0a3e,#2d1070)">
+        <div class="card-banner-overlay"></div>
+        <span class="card-type-badge badge-competition">🏛️ IIT Madras</span>
+        <div style="position:absolute;bottom:16px;left:16px;font-size:2.5rem">💡</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">E-Cell IITM (Nirmaan)</div>
+        <div class="card-org"><span>Entrepreneurship · IIT Madras</span></div>
+        <div class="card-tags"><span class="tag tag-purple">Entrepreneurship</span><span class="tag tag-purple">Startup</span><span class="tag">Annual BPC</span></div>
+        <div class="card-meta"><span>👥 200+ members</span><span>📅 Est. 2008</span></div>
+        <p style="font-size:0.82rem;color:var(--text-secondary)">Hosts Nirmaan — IITM's flagship business plan competition with ₹75k+ prizes and incubation support.</p>
+      </div>
+      <div class="card-footer">
+        <span class="tag tag-green">✓ 1 Active Event</span>
+        <button class="apply-btn" onclick="showToast('Following E-Cell IITM!','success','🔔')">Follow</button>
+      </div>
+    </div>
+
+    <div class="card" style="cursor:default">
+      <div class="card-banner" style="background:linear-gradient(135deg,#1a73e8,#0d3b5e)">
+        <div class="card-banner-overlay"></div>
+        <span class="card-type-badge badge-hackathon">🏛️ IIT Madras</span>
+        <div style="position:absolute;bottom:16px;left:16px;font-size:2.5rem">🌐</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">GDSC IIT Madras</div>
+        <div class="card-org"><span>Tech · IIT Madras</span></div>
+        <div class="card-tags"><span class="tag tag-purple">Google</span><span class="tag tag-purple">Developer</span><span class="tag">Cloud</span></div>
+        <div class="card-meta"><span>👥 300+ members</span><span>📅 Est. 2019</span></div>
+        <p style="font-size:0.82rem;color:var(--text-secondary)">Google Developer Student Club at IITM. Hosts Solution Challenge, workshops, and dev talks.</p>
+      </div>
+      <div class="card-footer">
+        <span class="tag tag-green">✓ 1 Active Event</span>
+        <button class="apply-btn" onclick="showToast('Following GDSC IITM!','success','🔔')">Follow</button>
+      </div>
+    </div>
+
+    <div class="card" style="cursor:default">
+      <div class="card-banner" style="background:linear-gradient(135deg,#065f46,#00C9A7)">
+        <div class="card-banner-overlay"></div>
+        <span class="card-type-badge badge-hackathon">🏛️ IIT Madras</span>
+        <div style="position:absolute;bottom:16px;left:16px;font-size:2.5rem">📈</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Finance & Investment Club, IITM</div>
+        <div class="card-org"><span>Finance · IIT Madras</span></div>
+        <div class="card-tags"><span class="tag tag-green">Finance</span><span class="tag tag-green">Stock Market</span><span class="tag">Shaastra</span></div>
+        <div class="card-meta"><span>👥 150+ members</span><span>📅 Est. 2010</span></div>
+        <p style="font-size:0.82rem;color:var(--text-secondary)">Runs the Shaastra Finance League — South India's premier student stock market simulation.</p>
+      </div>
+      <div class="card-footer">
+        <span class="tag tag-green">✓ 1 Active Event</span>
+        <button class="apply-btn" onclick="showToast('Following Finance Club IITM!','success','🔔')">Follow</button>
+      </div>
+    </div>
+
+    <!-- Other college clubs -->
+    <div class="card" style="cursor:default">
+      <div class="card-banner" style="background:linear-gradient(135deg,#2d1070,#00C9A7)">
+        <div class="card-banner-overlay"></div>
+        <span class="card-type-badge" style="background:rgba(255,107,53,0.8);color:white">🏛️ VIT Chennai</span>
+        <div style="position:absolute;bottom:16px;left:16px;font-size:2.5rem">⚡</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">CodeChef VIT Chennai</div>
+        <div class="card-org"><span>Competitive Coding · VIT Chennai</span></div>
+        <div class="card-tags"><span class="tag tag-purple">Competitive Coding</span><span class="tag">Hackathons</span></div>
+        <div class="card-meta"><span>👥 400+ members</span><span>📅 Est. 2016</span></div>
+        <p style="font-size:0.82rem;color:var(--text-secondary)">Organises Chennai Hacks — the city's most popular student hackathon. Active 365 days a year.</p>
+      </div>
+      <div class="card-footer">
+        <span class="tag tag-green">✓ 1 Active Event</span>
+        <button class="apply-btn" onclick="showToast('Following CodeChef VIT!','success','🔔')">Follow</button>
+      </div>
+    </div>
+
+    <div class="card" style="cursor:default">
+      <div class="card-banner" style="background:linear-gradient(135deg,#7c2d12,#FF6B35)">
+        <div class="card-banner-overlay"></div>
+        <span class="card-type-badge" style="background:rgba(0,0,0,0.3);color:white">🏛️ NIT Trichy</span>
+        <div style="position:absolute;bottom:16px;left:16px;font-size:2.5rem">🧠</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Pragyan, NIT Trichy</div>
+        <div class="card-org"><span>Technical Fest · NIT Trichy</span></div>
+        <div class="card-tags"><span class="tag tag-orange">Quiz</span><span class="tag tag-orange">Technical Fest</span></div>
+        <div class="card-meta"><span>👥 1000+ members</span><span>📅 Est. 2004</span></div>
+        <p style="font-size:0.82rem;color:var(--text-secondary)">South India's largest student-run technical festival. Online events accessible to Chennai students.</p>
+      </div>
+      <div class="card-footer">
+        <span class="tag tag-green">✓ 1 Active Event</span>
+        <button class="apply-btn" onclick="showToast('Following Pragyan NIT Trichy!','success','🔔')">Follow</button>
+      </div>
+    </div>
+
+    <!-- Add Club CTA -->
+    <div class="card" style="cursor:default;border:2px dashed var(--border)">
+      <div class="card-body" style="justify-content:center;align-items:center;text-align:center;padding:40px 20px">
+        <div style="font-size:3rem;margin-bottom:16px">➕</div>
+        <div class="card-title" style="margin-bottom:8px">List Your Club</div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px">Are you a club organizer? Get verified and start reaching students across Chennai's college cluster.</p>
+        <button class="btn btn-primary" onclick="showToast('Organizer onboarding coming soon!','info','🚀')">Register Club →</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div>CityFeed</a><p>Hyper-local campus event discovery platform. Built by IIT Madras students.</p></div>
+    <div class="footer-col"><h4>Discover</h4><ul><li><a href="competitions.html">Competitions</a></li><li><a href="hackathons.html">Hackathons</a></li><li><a href="internships.html">Internships</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 CityFeed · IIT Madras · MS2002 Course Project</div></div>
+</footer>
+
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <div class="modal-header"><div><div style="font-size:1.6rem;margin-bottom:4px">⚡</div><h2 style="font-size:1.1rem;font-weight:800">Welcome to CityFeed</h2></div><button class="modal-close" onclick="closeAuthModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="auth-tabs"><div class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Login</div><div class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</div></div>
+      <div id="login-form"><div class="demo-hint"><strong>🎯 Demo</strong> demo@iitm.ac.in / cityfeed2026</div><form id="login-form-el"><div id="login-error" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:10px 14px;border-radius:8px;font-size:0.82rem;margin-bottom:16px"></div><div class="form-group"><label class="form-label">Email</label><input id="login-email" class="form-input" type="email" value="demo@iitm.ac.in" required /></div><div class="form-group"><label class="form-label">Password</label><input id="login-pwd" class="form-input" type="password" value="cityfeed2026" required /></div><button type="submit" class="btn btn-primary w-full" style="justify-content:center">Login →</button></form></div>
+      <div id="signup-form" class="hidden"><form id="signup-form-el"><div class="form-group"><label class="form-label">Full Name</label><input id="signup-name" class="form-input" type="text" required /></div><div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" required /></div><div class="form-group"><label class="form-label">College</label><select class="form-input" required><option value="">Select</option><option>IIT Madras</option><option>Anna University</option><option>SRM Chennai</option><option>VIT Chennai</option></select></div><div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" required /></div><button type="submit" class="btn btn-primary w-full" style="justify-content:center">Create Account →</button></form></div>
+    </div>
+  </div>
+</div>
+<div id="toast-container"></div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

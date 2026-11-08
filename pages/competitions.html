@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Competitions — CityFeed | IIT Madras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="../index.html" class="nav-logo">
+    <div class="logo-icon">⚡</div>
+    CityFeed
+  </a>
+  <div class="nav-links">
+    <a href="../index.html">Discover</a>
+    <a href="competitions.html" class="active">Competitions</a>
+    <a href="hackathons.html">Hackathons</a>
+    <a href="internships.html">Internships</a>
+    <a href="clubs.html">Clubs</a>
+  </div>
+  <div class="nav-search">
+    <span class="search-icon">🔍</span>
+    <input id="nav-search-input" type="text" placeholder="Search competitions..." autocomplete="off" />
+  </div>
+  <div class="nav-actions">
+    <div class="nav-city-badge">📍 Chennai</div>
+    <div class="show-logged-out" style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-outline btn-sm" onclick="openAuthModal('login')">Login</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuthModal('signup')">Sign Up</button>
+    </div>
+    <div class="show-logged-in" style="display:none;gap:10px;align-items:center">
+      <a href="profile.html" class="avatar user-avatar-display">PK</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" style="padding:48px 24px 36px">
+  <div class="hero-content">
+    <div class="hero-badge">🏆 Competitions</div>
+    <h1>Find Your <span>Next Win</span></h1>
+    <p>All competitions across Chennai's college cluster — case studies, quizzes, finance, design and more.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>8</strong><span>Active Competitions</span></div>
+      <div class="hero-stat"><strong>₹2.5L+</strong><span>Total Prizes</span></div>
+      <div class="hero-stat"><strong>Nov–Dec</strong><span>Peak Season</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <button class="filter-chip active" data-filter="all" onclick="setFilter('all')">🔥 All</button>
+  <button class="filter-chip" data-filter="competition" onclick="setFilter('competition')">🏆 Case Study</button>
+  <button class="filter-chip" data-filter="hackathon" onclick="setFilter('hackathon')">💻 Hackathon</button>
+  <button class="filter-chip" data-filter="iitm" onclick="setFilter('iitm')">🎓 IITM</button>
+</div>
+
+<main class="container section">
+  <div class="page-layout">
+    <div class="main-col">
+      <div class="section-header">
+        <h2 class="section-title"><span class="icon">🏆</span> All Competitions</h2>
+        <div style="font-size:0.85rem;color:var(--text-muted)">Showing <span id="comp-count">8</span> results</div>
+      </div>
+      <div class="cards-grid" id="competitions-grid"></div>
+    </div>
+    <aside class="sidebar">
+      <div class="sidebar-widget" style="text-align:center;padding:28px 20px">
+        <div style="font-size:2rem;margin-bottom:10px">🏆</div>
+        <h3 style="font-weight:700;margin-bottom:8px">Pro Tip</h3>
+        <p style="font-size:0.82rem;color:var(--text-muted)">Log in to track deadlines, receive reminders, and apply with one click.</p>
+      </div>
+      <div class="sidebar-widget">
+        <div class="sidebar-widget-title">⏰ Upcoming Deadlines</div>
+        <div class="deadline-list" id="deadline-list"></div>
+      </div>
+      <div class="show-logged-in sidebar-widget profile-widget" style="display:none;border-radius:20px">
+        <div class="avatar user-avatar-display" style="width:60px;height:60px;font-size:1.3rem;margin:0 auto 12px">PK</div>
+        <h3 class="user-name-display">Pranav Kolekar</h3>
+        <p class="user-college-display">IIT Madras</p>
+        <div class="stats-row">
+          <div class="stat"><strong class="applied-count">0</strong><small>Applied</small></div>
+          <div class="stat"><strong class="saved-count">0</strong><small>Saved</small></div>
+        </div>
+        <a href="profile.html" class="btn btn-sm">View Profile →</a>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div>CityFeed</a>
+      <p>Hyper-local campus event discovery platform. Built by IIT Madras students.</p>
+    </div>
+    <div class="footer-col"><h4>Discover</h4><ul><li><a href="competitions.html">Competitions</a></li><li><a href="hackathons.html">Hackathons</a></li><li><a href="internships.html">Internships</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 CityFeed · IIT Madras · MS2002 Course Project</div></div>
+</footer>
+
+<!-- Auth Modal -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div><div style="font-size:1.6rem;margin-bottom:4px">⚡</div><h2 style="font-size:1.1rem;font-weight:800">Welcome to CityFeed</h2><p style="font-size:0.82rem;color:var(--text-muted)">Your campus event feed</p></div>
+      <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Login</div>
+        <div class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</div>
+      </div>
+      <div id="login-form">
+        <div class="demo-hint"><strong>🎯 Demo Credentials</strong>Email: demo@iitm.ac.in &nbsp;|&nbsp; Password: cityfeed2026</div>
+        <form id="login-form-el">
+          <div id="login-error" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:10px 14px;border-radius:8px;font-size:0.82rem;margin-bottom:16px"></div>
+          <div class="form-group"><label class="form-label">College Email</label><input id="login-email" class="form-input" type="email" placeholder="demo@iitm.ac.in" value="demo@iitm.ac.in" required /></div>
+          <div class="form-group"><label class="form-label">Password</label><input id="login-pwd" class="form-input" type="password" placeholder="••••••••••" value="cityfeed2026" required /></div>
+          <button type="submit" class="btn btn-primary w-full" style="justify-content:center">Login →</button>
+        </form>
+      </div>
+      <div id="signup-form" class="hidden">
+        <form id="signup-form-el">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Full Name</label><input id="signup-name" class="form-input" type="text" placeholder="Your Name" required /></div>
+            <div class="form-group"><label class="form-label">Roll No</label><input class="form-input" type="text" placeholder="XX25BXXX" required /></div>
+          </div>
+          <div class="form-group"><label class="form-label">College Email</label><input class="form-input" type="email" placeholder="@smail.iitm.ac.in" required /></div>
+          <div class="form-group"><label class="form-label">College</label><select class="form-input" required><option value="">Select college</option><option>IIT Madras</option><option>Anna University</option><option>SRM Chennai</option><option>VIT Chennai</option><option>Other</option></select></div>
+          <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" placeholder="Create password" required /></div>
+          <button type="submit" class="btn btn-primary w-full" style="justify-content:center">Create Account →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Apply Modal -->
+<div class="modal-overlay" id="apply-modal">
+  <div class="modal">
+    <div class="apply-modal-banner"><div style="font-size:0.75rem;opacity:0.75;margin-bottom:6px;letter-spacing:1px">🚀 APPLYING FOR</div><h2 id="apply-modal-title"></h2><p id="apply-modal-org"></p></div>
+    <div class="modal-body" style="padding-top:24px">
+      <input type="hidden" id="apply-item-id" />
+      <form id="apply-form-el">
+        <div class="form-group"><label class="form-label">Why do you want to participate? (optional)</label><textarea class="form-input" rows="3" placeholder="Briefly describe your motivation..."></textarea></div>
+        <div class="form-group"><label class="form-label">Resume / Portfolio URL (optional)</label><input class="form-input" type="url" placeholder="https://drive.google.com/..." /></div>
+        <div style="display:flex;gap:12px;margin-top:8px">
+          <button type="button" class="btn btn-ghost" style="flex:1;justify-content:center" onclick="closeApplyModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="flex:2;justify-content:center">🚀 Submit Application</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="detail-modal">
+  <div class="modal" style="max-width:600px">
+    <button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:1" onclick="closeDetailModal()">✕</button>
+    <div id="detail-modal-content"></div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<script src="../assets/js/app.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // On competitions page, show all types
+    setFilter('all');
+    document.getElementById('comp-count').textContent = COMPETITIONS.length;
+  });
+</script>
+</body>
+</html>

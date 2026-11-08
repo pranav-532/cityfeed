@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile — CityFeed | IIT Madras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div>CityFeed</a>
+  <div class="nav-links">
+    <a href="../index.html">Discover</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="hackathons.html">Hackathons</a>
+    <a href="internships.html">Internships</a>
+    <a href="clubs.html">Clubs</a>
+  </div>
+  <div class="nav-actions">
+    <div class="nav-city-badge">📍 Chennai</div>
+    <div class="show-logged-out" style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-outline btn-sm" onclick="openAuthModal('login')">Login</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuthModal('signup')">Sign Up</button>
+    </div>
+    <div class="show-logged-in" style="display:none;gap:10px;align-items:center">
+      <a href="profile.html" class="avatar user-avatar-display">PK</a>
+      <button class="btn btn-ghost btn-sm" onclick="logout()">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Not logged in state -->
+<div id="not-logged-in" class="show-logged-out" style="display:flex">
+  <div class="container section" style="text-align:center;padding:80px 24px">
+    <div style="font-size:4rem;margin-bottom:16px">🔒</div>
+    <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:12px">Please Log In</h2>
+    <p style="color:var(--text-muted);margin-bottom:24px">Create a free account to access your profile, track applications, and discover opportunities.</p>
+    <div style="display:flex;gap:12px;justify-content:center">
+      <button class="btn btn-primary" onclick="openAuthModal('login')">Login</button>
+      <button class="btn btn-outline" onclick="openAuthModal('signup')">Sign Up Free</button>
+    </div>
+  </div>
+</div>
+
+<!-- Logged in state -->
+<div id="logged-in-view" class="show-logged-in" style="display:none">
+
+  <div class="profile-page-header">
+    <div class="container">
+      <div class="profile-info">
+        <div class="avatar user-avatar-display" style="width:80px;height:80px;font-size:1.8rem;flex-shrink:0">PK</div>
+        <div>
+          <h1 class="user-name-display">Pranav Kolekar</h1>
+          <p>🎓 <span class="user-college-display">IIT Madras</span> &nbsp;•&nbsp; <span class="user-year-display">1st Year B.Tech</span> &nbsp;•&nbsp; <span class="user-dept-display">Chemical Engineering</span></p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="tag" style="background:rgba(255,255,255,0.15);color:white;border-color:transparent">📧 CH25B071</span>
+            <span class="tag" style="background:rgba(255,255,255,0.15);color:white;border-color:transparent">📍 Chennai</span>
+            <span class="tag" style="background:rgba(0,201,167,0.2);color:#00C9A7;border-color:transparent">✓ Verified Student</span>
+          </div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:12px;flex-wrap:wrap">
+          <div style="text-align:center;background:rgba(255,255,255,0.1);padding:12px 20px;border-radius:12px">
+            <div style="font-size:1.6rem;font-weight:800;color:#00C9A7" class="applied-count">0</div>
+            <div style="font-size:0.75rem;opacity:0.7">Applied</div>
+          </div>
+          <div style="text-align:center;background:rgba(255,255,255,0.1);padding:12px 20px;border-radius:12px">
+            <div style="font-size:1.6rem;font-weight:800;color:#FF6B35" class="saved-count">0</div>
+            <div style="font-size:0.75rem;opacity:0.7">Saved</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-tabs">
+    <div class="profile-tab active" onclick="showProfileTab('applications')">📋 My Applications</div>
+    <div class="profile-tab" onclick="showProfileTab('saved')">🔖 Saved</div>
+    <div class="profile-tab" onclick="showProfileTab('passport')">🎓 Club Passport</div>
+    <div class="profile-tab" onclick="showProfileTab('settings')">⚙️ Settings</div>
+  </div>
+
+  <main class="container section">
+    <div class="page-layout">
+      <div class="main-col">
+
+        <!-- Applications Tab -->
+        <div id="tab-applications">
+          <div class="section-header">
+            <h2 class="section-title"><span class="icon">📋</span> My Applications</h2>
+          </div>
+          <div id="applications-content">
+            <div class="empty-state">
+              <div class="icon">📋</div>
+              <h3>No applications yet</h3>
+              <p>Start applying to competitions, hackathons, and internships to track them here.</p>
+              <a href="../index.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">Discover Opportunities →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saved Tab -->
+        <div id="tab-saved" class="hidden">
+          <div class="section-header">
+            <h2 class="section-title"><span class="icon">🔖</span> Saved Items</h2>
+          </div>
+          <div id="saved-content">
+            <div class="empty-state">
+              <div class="icon">🔖</div>
+              <h3>Nothing saved yet</h3>
+              <p>Save competitions and internships to come back to them later.</p>
+              <a href="../index.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">Browse Events →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Club Passport Tab -->
+        <div id="tab-passport" class="hidden">
+          <div class="section-header">
+            <h2 class="section-title"><span class="icon">🎓</span> Club Passport</h2>
+          </div>
+          <div style="background:linear-gradient(135deg,#1a0a3e,#2d1070);border-radius:20px;padding:32px;color:white;margin-bottom:24px">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+              <div>
+                <div style="font-size:0.75rem;opacity:0.6;margin-bottom:6px;letter-spacing:1px">CITYFEED CLUB PASSPORT</div>
+                <div style="font-size:1.2rem;font-weight:800;margin-bottom:4px" class="user-name-display">Pranav Kolekar</div>
+                <div style="font-size:0.85rem;opacity:0.75" class="user-college-display">IIT Madras</div>
+              </div>
+              <div style="font-size:4rem;opacity:0.3">🎓</div>
+            </div>
+            <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.15);display:flex;gap:20px;flex-wrap:wrap">
+              <div><div style="font-size:1.4rem;font-weight:800;color:#00C9A7" class="applied-count">0</div><div style="font-size:0.75rem;opacity:0.6">Events Applied</div></div>
+              <div><div style="font-size:1.4rem;font-weight:800;color:#FF6B35">0</div><div style="font-size:0.75rem;opacity:0.6">Events Attended</div></div>
+              <div><div style="font-size:1.4rem;font-weight:800;color:#7ee8fa">0</div><div style="font-size:0.75rem;opacity:0.6">Awards Won</div></div>
+            </div>
+          </div>
+          <div class="empty-state">
+            <div class="icon">🏆</div>
+            <h3>Build your passport</h3>
+            <p>Participate in events to add achievements to your Club Passport — your verified record of campus activities.</p>
+            <a href="../index.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">Start Applying →</a>
+          </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="tab-settings" class="hidden">
+          <div class="section-header">
+            <h2 class="section-title"><span class="icon">⚙️</span> Account Settings</h2>
+          </div>
+          <div class="sidebar-widget" style="border-radius:16px;margin-bottom:16px">
+            <div class="sidebar-widget-title">Profile Information</div>
+            <form onsubmit="event.preventDefault();showToast('Profile updated!','success','✓')">
+              <div class="form-row">
+                <div class="form-group"><label class="form-label">Full Name</label><input class="form-input user-name-display" type="text" value="Pranav Kolekar" /></div>
+                <div class="form-group"><label class="form-label">Roll Number</label><input class="form-input" type="text" value="CH25B071" /></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label class="form-label">College</label><input class="form-input" type="text" value="IIT Madras" /></div>
+                <div class="form-group"><label class="form-label">Department</label><input class="form-input" type="text" value="Chemical Engineering" /></div>
+              </div>
+              <div class="form-group"><label class="form-label">Year of Study</label><select class="form-input"><option>1st Year B.Tech</option><option>2nd Year B.Tech</option><option>3rd Year B.Tech</option><option>4th Year B.Tech</option><option>M.Tech / MS</option><option>PhD</option></select></div>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+          <div class="sidebar-widget" style="border-radius:16px">
+            <div class="sidebar-widget-title">🔔 Notification Preferences</div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+                <span style="font-size:0.9rem">Deadline reminders</span>
+                <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--primary)" />
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+                <span style="font-size:0.9rem">New events near me</span>
+                <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--primary)" />
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+                <span style="font-size:0.9rem">Application updates</span>
+                <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--primary)" />
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+                <span style="font-size:0.9rem">Sponsor deals</span>
+                <input type="checkbox" style="width:18px;height:18px;accent-color:var(--primary)" />
+              </label>
+            </div>
+          </div>
+          <div style="margin-top:16px">
+            <button class="btn btn-ghost" style="color:#ef4444;border-color:#fecaca" onclick="logout();window.location.href='../index.html'">🚪 Logout</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-widget profile-widget" style="border-radius:20px">
+          <div class="avatar user-avatar-display" style="width:60px;height:60px;font-size:1.3rem;margin:0 auto 12px">PK</div>
+          <h3 class="user-name-display">Pranav Kolekar</h3>
+          <p class="user-college-display">IIT Madras</p>
+          <div class="stats-row">
+            <div class="stat"><strong class="applied-count">0</strong><small>Applied</small></div>
+            <div class="stat"><strong class="saved-count">0</strong><small>Saved</small></div>
+          </div>
+          <button class="btn btn-sm" onclick="showProfileTab('settings')">Edit Profile →</button>
+        </div>
+        <div class="sidebar-widget">
+          <div class="sidebar-widget-title">🎯 Interests</div>
+          <div class="card-tags">
+            <span class="tag tag-purple">Chemical Engg</span>
+            <span class="tag tag-purple">Entrepreneurship</span>
+            <span class="tag tag-green">Data Science</span>
+            <span class="tag tag-orange">Finance</span>
+            <span class="tag">Hackathons</span>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <div class="sidebar-widget-title">⏰ Upcoming Deadlines</div>
+          <div class="deadline-list" id="deadline-list"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div>CityFeed</a><p>Hyper-local campus event discovery platform. Built by IIT Madras students.</p></div>
+    <div class="footer-col"><h4>Discover</h4><ul><li><a href="competitions.html">Competitions</a></li><li><a href="hackathons.html">Hackathons</a></li><li><a href="internships.html">Internships</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 CityFeed · IIT Madras · MS2002 Course Project</div></div>
+</footer>
+
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <div class="modal-header"><div><div style="font-size:1.6rem;margin-bottom:4px">⚡</div><h2 style="font-size:1.1rem;font-weight:800">Welcome to CityFeed</h2><p style="font-size:0.82rem;color:var(--text-muted)">Your campus event feed</p></div><button class="modal-close" onclick="closeAuthModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="auth-tabs"><div class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Login</div><div class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</div></div>
+      <div id="login-form"><div class="demo-hint"><strong>🎯 Demo</strong> demo@iitm.ac.in / cityfeed2026</div><form id="login-form-el"><div id="login-error" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:10px 14px;border-radius:8px;font-size:0.82rem;margin-bottom:16px"></div><div class="form-group"><label class="form-label">Email</label><input id="login-email" class="form-input" type="email" value="demo@iitm.ac.in" required /></div><div class="form-group"><label class="form-label">Password</label><input id="login-pwd" class="form-input" type="password" value="cityfeed2026" required /></div><button type="submit" class="btn btn-primary w-full" style="justify-content:center">Login →</button></form></div>
+      <div id="signup-form" class="hidden"><form id="signup-form-el"><div class="form-group"><label class="form-label">Full Name</label><input id="signup-name" class="form-input" type="text" required /></div><div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" required /></div><div class="form-group"><label class="form-label">College</label><select class="form-input" required><option value="">Select</option><option>IIT Madras</option><option>Anna University</option><option>SRM Chennai</option><option>VIT Chennai</option></select></div><div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" required /></div><button type="submit" class="btn btn-primary w-full" style="justify-content:center">Create Account →</button></form></div>
+    </div>
+  </div>
+</div>
+<div id="toast-container"></div>
+
+<script src="../assets/js/app.js"></script>
+<script>
+  function showProfileTab(tab) {
+    ['applications','saved','passport','settings'].forEach(t => {
+      document.getElementById(`tab-${t}`)?.classList.toggle('hidden', t !== tab);
+    });
+    document.querySelectorAll('.profile-tab').forEach((el, i) => {
+      const tabs = ['applications','saved','passport','settings'];
+      el.classList.toggle('active', tabs[i] === tab);
+    });
+    if (tab === 'applications') renderApplicationsList();
+    if (tab === 'saved') renderSavedList();
+  }
+
+  function renderApplicationsList() {
+    const container = document.getElementById('applications-content');
+    if (!AUTH.user || AUTH.user.applied.length === 0) {
+      container.innerHTML = `<div class="empty-state"><div class="icon">📋</div><h3>No applications yet</h3><p>Start applying to competitions, hackathons, and internships to track them here.</p><a href="../index.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">Discover Opportunities →</a></div>`;
+      return;
+    }
+    const items = [...COMPETITIONS, ...INTERNSHIPS].filter(x => AUTH.user.applied.includes(x.id));
+    container.innerHTML = `<div class="internship-list">${items.map(item => `
+      <div class="internship-card">
+        <div class="internship-logo">${item.orgLogo}</div>
+        <div class="internship-info">
+          <div class="internship-role">${item.title || item.role}</div>
+          <div class="internship-org">🏢 ${item.org}</div>
+          <div class="internship-tags"><span class="tag tag-green">✓ Applied</span></div>
+        </div>
+        <div class="internship-actions">
+          <div style="font-size:0.8rem;color:var(--text-muted)">⏰ ${item.daysLeft}d left</div>
+          <span class="tag tag-green" style="padding:6px 14px">✓ Applied</span>
+        </div>
+      </div>`).join('')}</div>`;
+  }
+
+  function renderSavedList() {
+    const container = document.getElementById('saved-content');
+    if (!AUTH.user || AUTH.user.saved.length === 0) {
+      container.innerHTML = `<div class="empty-state"><div class="icon">🔖</div><h3>Nothing saved yet</h3><p>Save competitions and internships to come back to them later.</p><a href="../index.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">Browse Events →</a></div>`;
+      return;
+    }
+    const items = [...COMPETITIONS, ...INTERNSHIPS].filter(x => AUTH.user.saved.includes(x.id));
+    container.innerHTML = `<div class="internship-list">${items.map(item => `
+      <div class="internship-card">
+        <div class="internship-logo">${item.orgLogo}</div>
+        <div class="internship-info">
+          <div class="internship-role">${item.title || item.role}</div>
+          <div class="internship-org">🏢 ${item.org}</div>
+          <div class="internship-tags">${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+        <div class="internship-actions">
+          <div style="font-size:0.8rem;color:var(--text-muted)">⏰ ${item.daysLeft}d left</div>
+          <button class="apply-btn btn-sm" onclick="openApplyModal('${item.id}')">Apply</button>
+        </div>
+      </div>`).join('')}</div>`;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // If not logged in, redirect to login
+    if (!AUTH.isLoggedIn) {
+      // Show not-logged-in state
+      return;
+    }
+    renderApplicationsList();
+  });
+</script>
+</body>
+</html>

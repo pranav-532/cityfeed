@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internships — CityFeed | IIT Madras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div>CityFeed</a>
+  <div class="nav-links">
+    <a href="../index.html">Discover</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="hackathons.html">Hackathons</a>
+    <a href="internships.html" class="active">Internships</a>
+    <a href="clubs.html">Clubs</a>
+  </div>
+  <div class="nav-search"><span class="search-icon">🔍</span><input id="nav-search-input" type="text" placeholder="Search internships..." autocomplete="off" /></div>
+  <div class="nav-actions">
+    <div class="nav-city-badge">📍 Chennai</div>
+    <div class="show-logged-out" style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-outline btn-sm" onclick="openAuthModal('login')">Login</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuthModal('signup')">Sign Up</button>
+    </div>
+    <div class="show-logged-in" style="display:none;gap:10px;align-items:center">
+      <a href="profile.html" class="avatar user-avatar-display">PK</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" style="padding:48px 24px 36px;background:linear-gradient(135deg,#1a0a0a 0%,#7c2d12 50%,#1a3a4e 100%)">
+  <div class="hero-content">
+    <div class="hero-badge">💼 Internships</div>
+    <h1>Land Your <span>Dream Internship</span></h1>
+    <p>Local Chennai companies and startups looking for talented IITM students. Apply directly, no middleman.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>6</strong><span>Open Positions</span></div>
+      <div class="hero-stat"><strong>₹12k–30k</strong><span>Stipend Range</span></div>
+      <div class="hero-stat"><strong>Chennai</strong><span>Primarily Local</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <button class="filter-chip active" data-filter="all-intern" onclick="filterInterns('all')">💼 All Internships</button>
+  <button class="filter-chip" data-filter="tech" onclick="filterInterns('tech')">💻 Tech/SDE</button>
+  <button class="filter-chip" data-filter="ds" onclick="filterInterns('ds')">📊 Data Science</button>
+  <button class="filter-chip" data-filter="design" onclick="filterInterns('design')">🎨 Design</button>
+  <button class="filter-chip" data-filter="biz" onclick="filterInterns('biz')">📈 Business</button>
+  <button class="filter-chip" data-filter="core" onclick="filterInterns('core')">⚙️ Core Engg</button>
+</div>
+
+<main class="container section">
+  <div class="page-layout">
+    <div class="main-col">
+      <div class="section-header">
+        <h2 class="section-title"><span class="icon">💼</span> Open Internship Positions</h2>
+        <div style="font-size:0.85rem;color:var(--text-muted)">Showing <span id="intern-count">6</span> positions</div>
+      </div>
+      <div class="internship-list" id="internships-list"></div>
+    </div>
+    <aside class="sidebar">
+      <div class="sidebar-widget" style="background:linear-gradient(135deg,#7c2d12,#FF6B35);color:white;border-radius:20px;padding:28px 20px;text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:12px">🤝</div>
+        <h3 style="font-weight:800;margin-bottom:8px">Are You a Recruiter?</h3>
+        <p style="font-size:0.82rem;opacity:0.85;margin-bottom:16px">Post your internship and reach 12,000+ students across Chennai's top colleges.</p>
+        <button class="btn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);width:100%;justify-content:center" onclick="showToast('Recruiter portal coming soon!','info','🚀')">Post an Internship</button>
+      </div>
+      <div class="sidebar-widget">
+        <div class="sidebar-widget-title">⏰ Upcoming Deadlines</div>
+        <div class="deadline-list" id="deadline-list"></div>
+      </div>
+      <div class="sidebar-widget">
+        <div class="sidebar-widget-title">🏢 Hiring Companies</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="deadline-item"><div style="font-size:1.3rem">⚡</div><div class="info"><strong>OLA Electric</strong><span>Chennai · Product · ₹25k/mo</span></div></div>
+          <div class="deadline-item"><div style="font-size:1.3rem">🌩️</div><div class="info"><strong>Zoho Corp</strong><span>Chennai · SDE · ₹20k/mo</span></div></div>
+          <div class="deadline-item"><div style="font-size:1.3rem">🔧</div><div class="info"><strong>Robert Bosch</strong><span>Coimbatore · DS · ₹30k/mo</span></div></div>
+          <div class="deadline-item"><div style="font-size:1.3rem">🌱</div><div class="info"><strong>Freshworks</strong><span>Chennai · BDR · ₹15k/mo</span></div></div>
+        </div>
+      </div>
+      <div class="show-logged-in sidebar-widget profile-widget" style="display:none;border-radius:20px">
+        <div class="avatar user-avatar-display" style="width:60px;height:60px;font-size:1.3rem;margin:0 auto 12px">PK</div>
+        <h3 class="user-name-display">Pranav Kolekar</h3>
+        <p class="user-college-display">IIT Madras</p>
+        <div class="stats-row"><div class="stat"><strong class="applied-count">0</strong><small>Applied</small></div><div class="stat"><strong class="saved-count">0</strong><small>Saved</small></div></div>
+        <a href="profile.html" class="btn btn-sm">View Profile →</a>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div>CityFeed</a><p>Hyper-local campus event discovery platform. Built by IIT Madras students.</p></div>
+    <div class="footer-col"><h4>Discover</h4><ul><li><a href="competitions.html">Competitions</a></li><li><a href="hackathons.html">Hackathons</a></li><li><a href="internships.html">Internships</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 CityFeed · IIT Madras · MS2002 Course Project</div></div>
+</footer>
+
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <div class="modal-header"><div><div style="font-size:1.6rem;margin-bottom:4px">⚡</div><h2 style="font-size:1.1rem;font-weight:800">Welcome to CityFeed</h2><p style="font-size:0.82rem;color:var(--text-muted)">Your campus event feed</p></div><button class="modal-close" onclick="closeAuthModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="auth-tabs"><div class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Login</div><div class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</div></div>
+      <div id="login-form"><div class="demo-hint"><strong>🎯 Demo</strong> demo@iitm.ac.in / cityfeed2026</div><form id="login-form-el"><div id="login-error" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:10px 14px;border-radius:8px;font-size:0.82rem;margin-bottom:16px"></div><div class="form-group"><label class="form-label">Email</label><input id="login-email" class="form-input" type="email" value="demo@iitm.ac.in" required /></div><div class="form-group"><label class="form-label">Password</label><input id="login-pwd" class="form-input" type="password" value="cityfeed2026" required /></div><button type="submit" class="btn btn-primary w-full" style="justify-content:center">Login →</button></form></div>
+      <div id="signup-form" class="hidden"><form id="signup-form-el"><div class="form-group"><label class="form-label">Full Name</label><input id="signup-name" class="form-input" type="text" required /></div><div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" required /></div><div class="form-group"><label class="form-label">College</label><select class="form-input" required><option value="">Select</option><option>IIT Madras</option><option>Anna University</option><option>SRM Chennai</option><option>VIT Chennai</option></select></div><div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" required /></div><button type="submit" class="btn btn-primary w-full" style="justify-content:center">Create Account →</button></form></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="apply-modal">
+  <div class="modal"><div class="apply-modal-banner"><div style="font-size:0.75rem;opacity:0.75;margin-bottom:6px">💼 APPLYING FOR</div><h2 id="apply-modal-title"></h2><p id="apply-modal-org"></p></div>
+    <div class="modal-body" style="padding-top:24px"><input type="hidden" id="apply-item-id" /><form id="apply-form-el"><div class="form-group"><label class="form-label">Why are you interested? (optional)</label><textarea class="form-input" rows="3" placeholder="Briefly describe your interest..."></textarea></div><div class="form-group"><label class="form-label">Resume / LinkedIn URL</label><input class="form-input" type="url" placeholder="https://linkedin.com/in/..." /></div><div style="display:flex;gap:12px;margin-top:8px"><button type="button" class="btn btn-ghost" style="flex:1;justify-content:center" onclick="closeApplyModal()">Cancel</button><button type="submit" class="btn btn-primary" style="flex:2;justify-content:center">🚀 Apply Now</button></div></form></div>
+  </div>
+</div>
+<div class="modal-overlay" id="detail-modal"><div class="modal" style="max-width:600px"><button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:1" onclick="closeDetailModal()">✕</button><div id="detail-modal-content"></div></div></div>
+<div id="toast-container"></div>
+<script src="../assets/js/app.js"></script>
+<script>
+  const internFilterMap = {
+    all: null,
+    tech: ['SDE', 'Full Stack', 'Mobile'],
+    ds: ['Data Science', 'ML', 'AI'],
+    design: ['UX', 'UI', 'Figma', 'Design'],
+    biz: ['BDR', 'Sales', 'PM', 'Business'],
+    core: ['Chemical Engg', 'Process', 'Mechanical']
+  };
+
+  function filterInterns(key) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    document.querySelector(`[data-filter="${key === 'all' ? 'all-intern' : key}"]`)?.classList.add('active');
+
+    const tags = internFilterMap[key];
+    const list = document.getElementById('internships-list');
+    const filtered = tags ? INTERNSHIPS.filter(i => i.tags.some(t => tags.some(ft => t.includes(ft)))) : INTERNSHIPS;
+    document.getElementById('intern-count').textContent = filtered.length;
+    list.innerHTML = filtered.length ? filtered.map(renderInternshipCard).join('') :
+      `<div class="empty-state"><div class="icon">💼</div><h3>No results</h3><p>Try a different filter</p></div>`;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    filterInterns('all');
+  });
+</script>
+</body>
+</html>
