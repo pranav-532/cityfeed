@@ -711,13 +711,8 @@ function renderContent() {
   const internList = document.getElementById('internships-list');
   const compSection = document.getElementById('competitions-section');
   const internSection = document.getElementById('internships-section');
-  const featuredBanner = document.querySelector('.featured-banner');
 
   renderAppliedSection();
-
-  if (featuredBanner) {
-    featuredBanner.style.display = (activeFilter === 'applied') ? 'none' : 'flex';
-  }
 
   if (compGrid) {
     if (comps.length === 0) {
